@@ -137,6 +137,7 @@ git_show_stash() {
 	fi
 }
 
+# TODO allow history tracking like in finder for going forward
 trek() {
 	if [[ ! -z $1 ]]; then
 		if [[ $1 -lt 0 ]]; then
@@ -147,21 +148,33 @@ trek() {
 	fi
 }
 
-# directory hook is only alive until bash session end
-# TODO: make hooked persistent data
-directory=$(cd)
+alias setup='cp $HOME/setups/.bash_profile $HOME/.bash_profile && reload'
+
+# TODO instead of overwriting .bash_res.json file only change specific value for "hook" key
 hook() {
+	res="$HOME/.bash_res.json"
+	if [[ ! -e $res ]]; then
+		echo -e "$res does not exist so creating"
+		touch "$res"
+	fi
+	# matches any case of pull or p
 	if [[ $1 =~ ^[Pp]+[Uu]+[Ll]{2}|[Pp]$ ]]; then
-		cd $directory
+		# hook is the key
+		cd $(cat "$res" | jq -r ".hook")
 	else
-		directory=$(pwd)
+		dir=$(pwd)
+		echo "{ \"hook\" : \"${dir}\" }" > $res
 	fi
 }
 
 # command line project shortcut
 cc() {
+	project="/Users/fmerzadyan/forgespace/CruiseControl"
+	if [[ ! -d $project ]]; then
+		return
+	fi
 	if [[ $# -ge 3 ]]; then
-		cd /Users/fmerzadyan/forgespace/CruiseControl
+		cd $project
 		gradle run -Pin=$1/$2/$3
 	fi
 }
