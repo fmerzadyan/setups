@@ -116,7 +116,7 @@ run_android_emulator() {
 	fi
 }
 # stage all modified files but unstage .gitignore then show result
-alias git_add='git add -u && git reset HEAD .gitignore && git status'
+alias git_add='git add -u && git reset HEAD .gitignore && git reset HEAD android/dev/TitaniumTest/assets/Resources/app.js && git status'
 alias git_update='git stash && git checkout master && git pull upstream master && git push origin master'
 alias git_new='git_new'
 
@@ -160,7 +160,7 @@ hook() {
 	# matches any case of pull or p
 	if [[ $1 =~ ^[Pp]+[Uu]+[Ll]{2}|[Pp]$ ]]; then
 		# hook is the key
-		cd $(cat "$res" | jq -r ".hook")
+		cd "$(cat "$res" | jq -r ".hook")"
 	else
 		dir=$(pwd)
 		echo "{ \"hook\" : \"${dir}\" }" > $res
