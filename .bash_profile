@@ -65,7 +65,7 @@ alias sw='cd /Users/fmerzadyan/Documents/Appcelerator_Studio_Workspace'
 alias f='cd ~/forgespace && ls'
 alias ntest='cd /Users/fmerzadyan/workspace/titanium_mobile/build && npm install && node scons.js cleanbuild && node scons.js test android'
 alias wedit='cd /Users/fmerzadyan/workspace/titanium_mobile && atom .'
-alias ndev='ti clean && appc run -p android -T device'
+alias ndev='appc run -p android -T device'
 alias nem='run_android_emulator'
 alias iem='open -a Xcode && appc run -p ios'
 
