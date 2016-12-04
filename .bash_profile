@@ -27,7 +27,7 @@ export EDITOR='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl -
 code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args "$@";}  
 
 #scons build, package and install
-alias scons='cd /Users/fmerzadyan/workspace/titanium_mobile/build && node scons.js build && node scons.js package && node scons.js install'
+alias scons='cd /Users/fmerzadyan/workspace/new_titanium_mobile/build && node scons.js build && node scons.js package && node scons.js install'
 
 alias prod='appc logout; appc config set defaultEnvironment production; APPC_ENV=production appc login'
 alias preprod='appc logout; appc config set defaultEnvironment preproduction; APPC_ENV=preproduction appc login'
@@ -59,12 +59,12 @@ export PS1='\[\e[00;31m\]\u\[\e[0m\]\[\e[00;35m\]@\[\e[0m\]\[\e[00;32m\]\h\[\e[0
 # Monokai
 # export PS1='\[\e[00;37m\]\u\[\e[0m\]\[\e[00;31m\]@\[\e[0m\]\[\e[00;34m\]\h\[\e[0m\]\[\e[00;31m\]:\[\e[0m\]\[\e[00;32m\]\w\[\e[0m\]\[\e[00;33m\]$(__git_ps1 " (%s)")\[\e[0m\]\$ '
 alias show='defaults write com.apple.finder AppleShowAllFiles -bool YES && killall Finder'
-alias w='cd ~/workspace/titanium_mobile && ls'
+alias w='cd ~/workspace/new_titanium_mobile && ls'
 alias t='cd /Users/fmerzadyan/Library/Application\ Support/Titanium && ls'
 alias sw='cd /Users/fmerzadyan/Documents/Appcelerator_Studio_Workspace'
 alias f='cd ~/forgespace && ls'
-alias ntest='cd /Users/fmerzadyan/workspace/titanium_mobile/build && npm install && node scons.js cleanbuild && node scons.js test android'
-alias wedit='cd /Users/fmerzadyan/workspace/titanium_mobile && atom .'
+alias ntest='cd /Users/fmerzadyan/workspace/new_titanium_mobile/build && npm install && node scons.js cleanbuild && node scons.js test android'
+alias wedit='cd /Users/fmerzadyan/workspace/new_titanium_mobile && atom .'
 alias ndev='appc run -p android -T device'
 alias nem='run_android_emulator'
 alias iem='open -a Xcode && appc run -p ios'
