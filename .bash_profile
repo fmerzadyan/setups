@@ -148,7 +148,21 @@ trek() {
 	fi
 }
 
-alias setup='cp $HOME/setups/.bash_profile $HOME/.bash_profile && reload'
+alias setup='setup_config'
+
+setup_config() {
+	case "$1" in
+		0 )
+			cp $HOME/.bash_profile $HOME/setups/.bash_profile && reload
+			;;
+		1 )
+			cp $HOME/.bash_profile $HOME/setups/.bash_profile && reload
+			;;
+		* )
+			echo -e "0 for copying .bash_profile from HOME into HOME/setups"
+			echo -e "1 for copying .bash_profile from HOME/setups into HOME";
+	esac
+}
 
 # TODO instead of overwriting .bash_res.json file only change specific value for "hook" key
 hook() {
