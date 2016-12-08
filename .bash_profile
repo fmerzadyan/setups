@@ -1,9 +1,11 @@
 export PATH=$PATH:~/.rvm/scripts/rvm
 export PATH=$PATH:~/Library/Android/sdk/tools
 export PATH=$PATH:~/Library/Android/sdk/platform-tools
-export ANDROID_SDK=~/Library/Android/sdk
+export nsdk=~/Library/Android/sdk
 export PATH=$PATH:~/Library/Android/android-ndk-r12b
-export ANDROID_NDK=~/Library/Android/android-ndk-r12b
+export nndk=~/Library/Android/android-ndk-r12b
+# use quotation marks when calling to expand string e.g. cd "$tsdk"
+export tsdk='/Users/fmerzadyan/Library/Application Support/Titanium'
 export PATH=$PATH:~/workspace
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:~/scala/bin
@@ -28,7 +30,6 @@ code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args "$@";}
 
 #scons build, package and install
 alias scons='cd /Users/fmerzadyan/workspace/new_titanium_mobile/build && node scons.js build && node scons.js package && node scons.js install'
-
 alias prod='appc logout; appc config set defaultEnvironment production; APPC_ENV=production appc login'
 alias preprod='appc logout; appc config set defaultEnvironment preproduction; APPC_ENV=preproduction appc login'
 alias preprodprod='appc logout; appc config set defaultEnvironment preprodonprod; APPC_ENV=preprodonprod appc login'
@@ -68,6 +69,8 @@ alias wedit='cd /Users/fmerzadyan/workspace/new_titanium_mobile && atom .'
 alias ndev='appc run -p android -T device'
 alias nem='run_android_emulator'
 alias iem='open -a Xcode && appc run -p ios'
+alias dt='cd ~/Desktop'
+alias dl='cd ~/Downloads'
 
 insert_star() {
 	echo -e
