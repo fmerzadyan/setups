@@ -18,10 +18,10 @@ export PATH=$PATH:nndk
 export PATH=$PATH:$HOME/scala/bin
 
 # git auto completion scripts
-# shellcheck source=.git-completion.bash
-source $HOME/.git-completion.bash
-# shellcheck source=.git-prompt.sh
-source $HOME/.git-prompt.sh
+# shellcheck source=/Users/fmerzadyan/setups/.git-completion.bash
+source $HOME/setups/.git-completion.bash
+# shellcheck source=/Users/fmerzadyan/setups/.git-prompt.sh
+source $HOME/setups/.git-prompt.sh
 
 # application/program shortcuts
 # sublime launcher
