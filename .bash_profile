@@ -140,7 +140,6 @@ run_android_emulator() {
 
 git_new() {
 	if [[ ! -z $1 ]]; then
-		#statements
 		git stash
 		git checkout master
 		git checkout -b "$1"
@@ -192,4 +191,21 @@ cc() {
 		cd "$project" || return
 		gradle run -Pin="$1/$2/$3"
 	fi
+}
+
+# some lines for when coworkers gets too roudy
+v() {
+	case "$1" in
+		1 )
+			say -v Tessa -f $HOME/setups/rough_1.txt &
+			;;
+		2 )
+			say -v Tessa -f $HOME/setups/yomama_1.txt &
+			;;
+		3 )
+			say -v Tessa -f $HOME/setups/yomama_2.txt &
+			;;
+		* )
+			;;
+	esac
 }
