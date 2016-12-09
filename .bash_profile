@@ -85,7 +85,7 @@ export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 
 # FlatUI theme
-export PS1='\[\e[00;31m\]\u\[\e[0m\]\[\e[00;35m\]@\[\e[0m\]\[\e[00;32m\]\h\[\e[0m\]\[\e[00;35m\]:\[\e[0m\]\[\e[00;33m\]\w\[\e[0m\]\[\e[00;34m\]$(__git_ps1 " (%s)")\[\e[0m\]\$'
+export PS1='\[\e[00;31m\]\u\[\e[0m\]\[\e[00;35m\]@\[\e[0m\]\[\e[00;32m\]\h\[\e[0m\]\[\e[00;35m\]:\[\e[0m\]\[\e[00;33m\]\w\[\e[0m\]\[\e[00;34m\]$(__git_ps1 " (%s)")\[\e[0m\]\$ '
 
 alias ls='ls -FA'
 
@@ -197,13 +197,13 @@ cc() {
 v() {
 	case "$1" in
 		1 )
-			say -v Tessa -f $HOME/setups/rough_1.txt &
+			say -v Tessa -f "$HOME/setups/rough_1.txt" &
 			;;
 		2 )
-			say -v Tessa -f $HOME/setups/yomama_1.txt &
+			say -v Tessa -f "$HOME/setups/yomama_1.txt" &
 			;;
 		3 )
-			say -v Tessa -f $HOME/setups/yomama_2.txt &
+			say -v Tessa -f "$HOME/setups/yomama_2.txt" &
 			;;
 		* )
 			;;
