@@ -1,76 +1,85 @@
-export PATH=$PATH:~/.rvm/scripts/rvm
-export PATH=$PATH:~/Library/Android/sdk/tools
-export PATH=$PATH:~/Library/Android/sdk/platform-tools
-export nsdk=~/Library/Android/sdk
-export PATH=$PATH:~/Library/Android/android-ndk-r12b
-export nndk=~/Library/Android/android-ndk-r12b
-# use quotation marks when calling to expand string e.g. cd "$tsdk"
-export tsdk='/Users/fmerzadyan/Library/Application Support/Titanium'
-export PATH=$PATH:~/workspace
-export PATH=$PATH:/usr/local/bin
-export PATH=$PATH:~/scala/bin
-export GRADLE_HOME=$PATH
+#!/usr/bin/env bash
+# general development paths
+export PATH=/usr/local/bin:/usr/local/sbin:/bin:/usr/sbin:/usr/bin:/sbin
+export PATH=$PATH:$HOME
+export PATH=$PATH:$HOME/workspace
 
-# export CLASSPATH=/Users/fmerzadyan/forgespace/CruiseControl/out/production/CruiseControl/com/merzadyan
-export CLASSPATH=$CLASSPATH:/Users/fmerzadyan/lib/commons-lang3-3.5/commons-lang3-3.5.jar/
+export PATH=$PATH:$HOME/.rvm/scripts/rvm
 
-# alias compile="rm -fr /Users/fmerzadyan/forgespace/CruiseControl/out/production/CruiseControl/com/merzadyan/*.class && javac -d  /Users/fmerzadyan/forgespace/CruiseControl/out/production/CruiseControl/com/merzadyan /Users/fmerzadyan/forgespace/CruiseControl/src/com/merzadyan/*.java"
-# alias run="cd /Users/fmerzadyan/forgespace/CruiseControl/src && java -cp : com/merzadyan/Main android emulator list"
+# android sdk
+export nsdk=$HOME/Library/Android/sdk
+export PATH=$PATH:nsdk/tools
+export PATH=$PATH:nsdk/platform-tools
+# android ndk
+export nndk=$HOME/Library/Android/android-ndk-r12b
+export PATH=$PATH:nndk
+
+# scala
+export PATH=$PATH:$HOME/scala/bin
 
 # git auto completion scripts
-source ~/.git-completion.bash
-source ~/.git-prompt.sh
+# shellcheck source=.git-completion.bash
+source $HOME/.git-completion.bash
+# shellcheck source=.git-prompt.sh
+source $HOME/.git-prompt.sh
 
+# application/program shortcuts
 # sublime launcher
-alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
+alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 #set sublime as default editor
-export EDITOR='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl -w'
+export EDITOR="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl -w"
 # visual code
-code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args "$@";}  
+code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args "$@";}
 
-#scons build, package and install
-alias scons='cd /Users/fmerzadyan/workspace/new_titanium_mobile/build && node scons.js build && node scons.js package && node scons.js install'
+# appcelerator titanium shortcuts
+# use quotation marks when calling to expand string e.g. cd "$tsdk"
+export tsdk="$HOME/Library/Application Support/Titanium"
+export tidev=$HOME/workspace/new_titanium_mobile
+export tibuild=$tidev/build
+
+alias t='cd "$tsdk" && ls'
+alias sconsb='cd "$tibuild" && node scons.js build'
+alias sconsp='cd "$tibuild" && node scons.js package'
+alias sconsi='cd "$tibuild" && node scons.js install'
+alias scons='cd "$tibuild" &&  && sconsb && sconsp && sconsi'
 alias prod='appc logout; appc config set defaultEnvironment production; APPC_ENV=production appc login'
 alias preprod='appc logout; appc config set defaultEnvironment preproduction; APPC_ENV=preproduction appc login'
 alias preprodprod='appc logout; appc config set defaultEnvironment preprodonprod; APPC_ENV=preprodonprod appc login'
-# output ls in different colour
-# export CLICOLOR=1
-# export LSCOLORS=ExFxCxDxBxegedabagacad
-alias ls='ls -FA'
+
+# development shortcuts
+alias show='defaults write com.apple.finder AppleShowAllFiles -bool YES && killall Finder'
+alias w='cd $tidev && ls'
+alias sw='cd $HOME/Documents/Appcelerator_Studio_Workspace'
+alias f='cd $HOME/forgespace && ls'
+alias dt='cd $HOME/Desktop'
+alias dl='cd $HOME/Downloads'
+alias ntest='cd $tidev/build && npm install && node scons.js test android'
+alias wedit='cd $tidev && atom .'
+alias ndev='appc run -p android -T device'
+alias nem='run_android_emulator'
+alias iem='open -a Xcode && appc run -p ios'
 
 # reload .bash_profile after changes
-alias reload='. ~/.bash_profile'
-alias hclean='history -cw && echo "" > ~/.bash_history'
+alias reload='. $HOME/.bash_profile'
+alias hclean='history -cw && echo '' > $HOME/.bash_history'
 
 # same bash history accross different terminals
 export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
 export HISTSIZE=100000                   # big big history
 export HISTFILESIZE=100000               # big big history
-shopt -s histappend                      # append to history, don't overwrite it
+shopt -s histappend                      # append to history, don"t overwrite it
 
 # Save and reload the history after each command finishes
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
+# Themes
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 
-# FlatUI
-export PS1='\[\e[00;31m\]\u\[\e[0m\]\[\e[00;35m\]@\[\e[0m\]\[\e[00;32m\]\h\[\e[0m\]\[\e[00;35m\]:\[\e[0m\]\[\e[00;33m\]\w\[\e[0m\]\[\e[00;34m\]$(__git_ps1 " (%s)")\[\e[0m\]\$ '
+# FlatUI theme
+export PS1='\[\e[00;31m\]\u\[\e[0m\]\[\e[00;35m\]@\[\e[0m\]\[\e[00;32m\]\h\[\e[0m\]\[\e[00;35m\]:\[\e[0m\]\[\e[00;33m\]\w\[\e[0m\]\[\e[00;34m\]$(__git_ps1 " (%s)")\[\e[0m\]\$'
 
-# Monokai
-# export PS1='\[\e[00;37m\]\u\[\e[0m\]\[\e[00;31m\]@\[\e[0m\]\[\e[00;34m\]\h\[\e[0m\]\[\e[00;31m\]:\[\e[0m\]\[\e[00;32m\]\w\[\e[0m\]\[\e[00;33m\]$(__git_ps1 " (%s)")\[\e[0m\]\$ '
-alias show='defaults write com.apple.finder AppleShowAllFiles -bool YES && killall Finder'
-alias w='cd ~/workspace/new_titanium_mobile && ls'
-alias t='cd /Users/fmerzadyan/Library/Application\ Support/Titanium && ls'
-alias sw='cd /Users/fmerzadyan/Documents/Appcelerator_Studio_Workspace'
-alias f='cd ~/forgespace && ls'
-alias ntest='cd /Users/fmerzadyan/workspace/new_titanium_mobile/build && npm install && node scons.js cleanbuild && node scons.js test android'
-alias wedit='cd /Users/fmerzadyan/workspace/new_titanium_mobile && atom .'
-alias ndev='appc run -p android -T device'
-alias nem='run_android_emulator'
-alias iem='open -a Xcode && appc run -p ios'
-alias dt='cd ~/Desktop'
-alias dl='cd ~/Downloads'
+alias ls='ls -FA'
 
 insert_star() {
 	echo -e
@@ -111,8 +120,9 @@ run_android_emulator() {
 		esac
 	else
 		insert_star
-		echo -e "Usage example:  nem <api-level> e.g. 'nem 24'"
-		echo -e "list of emulators:"
+		# shellcheck disable=SC2016
+		echo -e 'Usage example:  nem <api-level> e.g. `nem 24`'
+		echo -e 'list of emulators:'
 		echo -e
 		vboxmanage list vms
 		insert_star
@@ -128,7 +138,7 @@ git_new() {
 		#statements
 		git stash
 		git checkout master
-		git checkout -b $1
+		git checkout -b "$1"
 	fi
 }
 
@@ -136,7 +146,7 @@ alias git_peek='git_show_stash'
 
 git_show_stash() {
 	if [[ ! -z $1 ]]; then
-		git stash list && git stash show -p stash@{$1}
+		"git stash list && git stash show -p stash@{$1}"
 	fi
 }
 
@@ -156,42 +166,43 @@ alias setup='setup_config'
 setup_config() {
 	case "$1" in
 		0 )
-			cp $HOME/.bash_profile $HOME/setups/.bash_profile && reload
+			cp "$HOME/.bash_profile" "$HOME/setups/.bash_profile" && reload
 			;;
 		1 )
-			cp $HOME/.bash_profile $HOME/setups/.bash_profile && reload
+			cp "$HOME/.bash_profile" "$HOME/setups/.bash_profile && reload"
 			;;
 		* )
-			echo -e "0 for copying .bash_profile from HOME into HOME/setups"
-			echo -e "1 for copying .bash_profile from HOME/setups into HOME";
+			echo -e '0 for copying .bash_profile from HOME into HOME/setups'
+			echo -e '1 for copying .bash_profile from HOME/setups into HOME';
 	esac
 }
 
 # TODO instead of overwriting .bash_res.json file only change specific value for "hook" key
 hook() {
-	res="$HOME/.bash_res.json"
+	res=$HOME/.bash_res.json
 	if [[ ! -e $res ]]; then
 		echo -e "$res does not exist so creating"
 		touch "$res"
 	fi
 	# matches any case of pull or p
 	if [[ $1 =~ ^[Pp]+[Uu]+[Ll]{2}|[Pp]$ ]]; then
-		# hook is the key
-		cd "$(cat "$res" | jq -r ".hook")"
+		# shellcheck disable=SC2002
+		# hook is the key 
+		cd "$(cat "$res" | jq -r ".hook")" || return
 	else
 		dir=$(pwd)
-		echo "{ \"hook\" : \"${dir}\" }" > $res
+		echo "{ \"hook\" : \"${dir}\" }" > "$res"
 	fi
 }
 
 # command line project shortcut
 cc() {
-	project="/Users/fmerzadyan/forgespace/CruiseControl"
+	project=$HOME/forgespace/CruiseControl
 	if [[ ! -d $project ]]; then
 		return
 	fi
 	if [[ $# -ge 3 ]]; then
-		cd $project
-		gradle run -Pin=$1/$2/$3
+		cd "$project" || return
+		gradle run -Pin="$1/$2/$3"
 	fi
 }
