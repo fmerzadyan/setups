@@ -10,6 +10,7 @@ export PATH=$PATH:$HOME/.rvm/scripts/rvm
 export nsdk=$HOME/Library/Android/sdk
 export PATH=$PATH:nsdk/tools
 export PATH=$PATH:nsdk/platform-tools
+
 # android ndk
 export nndk=$HOME/Library/Android/android-ndk-r12b
 export PATH=$PATH:nndk
@@ -47,6 +48,7 @@ alias preprod='appc logout; appc config set defaultEnvironment preproduction; AP
 alias preprodprod='appc logout; appc config set defaultEnvironment preprodonprod; APPC_ENV=preprodonprod appc login'
 
 # development shortcuts
+alias xz='cd $HOME/setups && atom .'
 alias show='defaults write com.apple.finder AppleShowAllFiles -bool YES && killall Finder'
 alias w='cd $tidev && ls'
 alias sw='cd $HOME/Documents/Appcelerator_Studio_Workspace'
@@ -58,6 +60,12 @@ alias wedit='cd $tidev && atom .'
 alias ndev='appc run -p android -T device'
 alias nem='run_android_emulator'
 alias iem='open -a Xcode && appc run -p ios'
+
+# stage all modified files but unstage .gitignore then show result
+alias git_add='git add -u && git reset HEAD .gitignore && git reset HEAD android/dev/TitaniumTest/assets/Resources/app.js && git status'
+alias git_update='git stash && git checkout master && git pull upstream master && git push origin master'
+alias git_new='git_new'
+alias git_peek='git_show_stash'
 
 # reload .bash_profile after changes
 alias reload='. $HOME/.bash_profile'
@@ -81,6 +89,7 @@ export PS1='\[\e[00;31m\]\u\[\e[0m\]\[\e[00;35m\]@\[\e[0m\]\[\e[00;32m\]\h\[\e[0
 
 alias ls='ls -FA'
 
+# custom functions
 insert_star() {
 	echo -e
 	for (( i = 0; i < $(tput cols); i++ )); do
@@ -128,10 +137,6 @@ run_android_emulator() {
 		insert_star
 	fi
 }
-# stage all modified files but unstage .gitignore then show result
-alias git_add='git add -u && git reset HEAD .gitignore && git reset HEAD android/dev/TitaniumTest/assets/Resources/app.js && git status'
-alias git_update='git stash && git checkout master && git pull upstream master && git push origin master'
-alias git_new='git_new'
 
 git_new() {
 	if [[ ! -z $1 ]]; then
@@ -141,8 +146,6 @@ git_new() {
 		git checkout -b "$1"
 	fi
 }
-
-alias git_peek='git_show_stash'
 
 git_show_stash() {
 	if [[ ! -z $1 ]]; then
@@ -159,22 +162,6 @@ trek() {
 			done
 		fi
 	fi
-}
-
-alias setup='setup_config'
-
-setup_config() {
-	case "$1" in
-		0 )
-			cp "$HOME/.bash_profile" "$HOME/setups/.bash_profile" && reload
-			;;
-		1 )
-			cp "$HOME/.bash_profile" "$HOME/setups/.bash_profile && reload"
-			;;
-		* )
-			echo -e '0 for copying .bash_profile from HOME into HOME/setups'
-			echo -e '1 for copying .bash_profile from HOME/setups into HOME';
-	esac
 }
 
 # TODO instead of overwriting .bash_res.json file only change specific value for "hook" key
