@@ -8,12 +8,26 @@ export PATH=$PATH:$HOME/.rvm/scripts/rvm
 
 # android sdk
 export nsdk=$HOME/Library/Android/sdk
-export PATH=$PATH:nsdk/tools
-export PATH=$PATH:nsdk/platform-tools
+# SDK looks for ANDROID_SDK/NDK in PATH
+export ANDROID_SDK=$nsdk
+export PATH=$PATH:$nsdk/tools
+export PATH=$PATH:$nsdk/platform-tools
+export ANDROID_PLATFORM=$nsdk/platforms/android-23
 
 # android ndk
 export nndk=$HOME/Library/Android/android-ndk-r12b
-export PATH=$PATH:nndk
+export ANDROID_NDK=$nndk
+export PATH=$PATH:$nndk
+
+# google apis
+export GOOGLE_APIS=$nsdk/add-ons/addon-google_apis-google-23
+
+# java
+export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/Current/Commands/java
+
+# ccache
+export NDK_CCACHE=/usr/local/bin/ccache
+export NUM_CPUS=8
 
 # scala
 export PATH=$PATH:$HOME/scala/bin
@@ -39,10 +53,12 @@ export tidev=$HOME/workspace/new_titanium_mobile
 export tibuild=$tidev/build
 
 alias t='cd "$tsdk" && ls'
-alias sconsb='cd "$tibuild" && node scons.js build'
-alias sconsp='cd "$tibuild" && node scons.js package'
-alias sconsi='cd "$tibuild" && node scons.js install'
-alias scons='cd "$tibuild" &&  && sconsb && sconsp && sconsi'
+# scons build_jsca=0  # Do full build & packaging but omit JSCA generation 
+alias sconsself='scons build_jsca=0'
+alias sconsb='node "$tibuild"/scons.js build'
+alias sconsp='node "$tibuild"/scons.js package'
+alias sconsi='node "$tibuild"/scons.js install'
+alias scons='sconsb && sconsp && sconsi'
 alias prod='appc logout; appc config set defaultEnvironment production; APPC_ENV=production appc login'
 alias preprod='appc logout; appc config set defaultEnvironment preproduction; APPC_ENV=preproduction appc login'
 alias preprodprod='appc logout; appc config set defaultEnvironment preprodonprod; APPC_ENV=preprodonprod appc login'
