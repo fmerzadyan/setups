@@ -51,7 +51,7 @@ alias preprodprod='appc logout; appc config set defaultEnvironment preprodonprod
 alias xz='cd $HOME/setups && atom .'
 alias show='defaults write com.apple.finder AppleShowAllFiles -bool YES && killall Finder'
 alias w='cd $tidev && ls'
-alias sw='cd $HOME/Documents/Appcelerator_Studio_Workspace'
+alias st='cd $HOME/Documents/Appcelerator_Studio_Workspace/test'
 alias f='cd $HOME/forgespace && ls'
 alias dt='cd $HOME/Desktop'
 alias dl='cd $HOME/Downloads'
@@ -85,7 +85,34 @@ export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 
 # FlatUI theme
-export PS1='\[\e[00;31m\]\u\[\e[0m\]\[\e[00;35m\]@\[\e[0m\]\[\e[00;32m\]\h\[\e[0m\]\[\e[00;35m\]:\[\e[0m\]\[\e[00;33m\]\w\[\e[0m\]\[\e[00;34m\]$(__git_ps1 " (%s)")\[\e[0m\]\$ '
+# export PS1='\[\e[00;31m\]\u\[\e[0m\]\[\e[00;35m\]@\[\e[0m\]\[\e[00;32m\]\h\[\e[0m\]\[\e[00;35m\]:\[\e[0m\]\[\e[00;33m\]\w\[\e[0m\]\[\e[00;34m\]$(__git_ps1 " (%s)")\[\e[0m\]\$ '
+
+# u - the current user's username
+# h - the current machine's hostname
+# j - the number of jobs managed by this shell
+# @ - the current time (12 hour format)
+# d - the current date
+# w - path of the current working directory
+# W - just the current working directory
+# e - an ASCII escape character (033)
+# n - adds a newline character
+#
+# normal='\[\e[0m\]'
+# green='\[\033[0;92m\]'
+# blue='\[\033[0;94m\]'
+# yellow='\[\033[0;93m\]'
+# changed from using variables because of issues with globular expansions/substitutions
+
+dynamic_theme() {
+	if [[ $PWD != "$HOME" ]]; then
+		export PS1='\[\033[0;91m\]\w\[\033[0;31m\] $(__git_ps1 "~ %s") \[\033[1;94m\]\$ \[\033[0;92m\]'
+	else
+		export PS1='\[\033[0;31m\] $(__git_ps1 "~ %s") \[\033[1;94m\]\$ \[\033[0;92m\]'
+	fi
+}
+
+# invoke function after every terminal command input
+PROMPT_COMMAND=dynamic_theme
 
 alias ls='ls -FA'
 
