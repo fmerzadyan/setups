@@ -23,7 +23,16 @@ export PATH=$PATH:$nndk
 export GOOGLE_APIS=$nsdk/add-ons/addon-google_apis-google-23
 
 # java
-export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/Current/Commands/java
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk/Contents/Home
+setJavaVersion() {
+	JAVA_HOME=$(/usr/libexec/java_home -v $1)
+	if [[ $? -eq 0 ]]; then
+		echo "successfully set JAVA_HOME as $JAVA_HOME"
+	else
+		echo "Reverting to default location"
+		JAVA_HOME=$(/usr/libexec/java_home -verbose) || return
+	fi
+}
 
 # ccache
 export NDK_CCACHE=/usr/local/bin/ccache
