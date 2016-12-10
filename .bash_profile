@@ -73,7 +73,7 @@ alias preprod='appc logout; appc config set defaultEnvironment preproduction; AP
 alias preprodprod='appc logout; appc config set defaultEnvironment preprodonprod; APPC_ENV=preprodonprod appc login'
 
 # development shortcuts
-alias xz='cd $HOME/setups && atom .'
+alias setups='cd $HOME/setups'
 alias show='defaults write com.apple.finder AppleShowAllFiles -bool YES && killall Finder'
 alias w='cd $tidev && ls'
 alias st='cd $HOME/Documents/Appcelerator_Studio_Workspace/test'
@@ -93,8 +93,14 @@ alias git_new='git_new'
 alias git_peek='git_show_stash'
 
 # reload .bash_profile after changes
-alias reload='. $HOME/.bash_profile'
+# shellcheck disable=SC2139
+alias rl="source ~/.bash_profile"
 alias hclean='history -cw && echo '' > $HOME/.bash_history'
+
+alias .='cd ..'
+alias ..='cd ../..'
+alias ...='cd ../../..'
+alias ....='cd ../../../..'
 
 # same bash history accross different terminals
 export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
@@ -138,6 +144,10 @@ dynamic_theme() {
 
 # invoke function after every terminal command input
 PROMPT_COMMAND=dynamic_theme
+# set max number of working directory parts
+PROMPT_DIRTRIM=2
+# autocomplete cycling
+bind TAB:menu-complete
 
 alias ls='ls -FA'
 
@@ -201,17 +211,6 @@ git_new() {
 git_show_stash() {
 	if [[ ! -z $1 ]]; then
 		"git stash list && git stash show -p stash@{$1}"
-	fi
-}
-
-# TODO allow history tracking like in finder for going forward
-trek() {
-	if [[ ! -z $1 ]]; then
-		if [[ $1 -lt 0 ]]; then
-			for (( i = 0; i < $(( $1 * -1 )); i++ )); do
-				cd ..
-			done
-		fi
 	fi
 }
 
