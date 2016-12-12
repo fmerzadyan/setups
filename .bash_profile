@@ -19,6 +19,10 @@ export nndk=$HOME/Library/Android/android-ndk-r12b
 export ANDROID_NDK=$nndk
 export PATH=$PATH:$nndk
 
+
+# gradle
+export GRADLE_HOME=/usr/local/opt/gradle/libexec
+
 # google apis
 export GOOGLE_APIS=$nsdk/add-ons/addon-google_apis-google-23
 
@@ -78,6 +82,7 @@ alias show='defaults write com.apple.finder AppleShowAllFiles -bool YES && killa
 alias w='cd $tidev && ls'
 alias swt='cd $HOME/Documents/Appcelerator_Studio_Workspace/test'
 alias f='cd $HOME/forgespace && ls'
+alias fv='cd $HOME/forgespace/vicinity'
 alias dt='cd $HOME/Desktop'
 alias dl='cd $HOME/Downloads'
 alias ntest='cd $tidev/build && npm install && node scons.js test android'
