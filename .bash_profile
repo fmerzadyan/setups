@@ -152,7 +152,7 @@ PROMPT_COMMAND=dynamic_theme
 # set max number of working directory parts
 PROMPT_DIRTRIM=2
 # autocomplete cycling
-bind TAB:menu-complete
+# bind TAB:menu-complete
 
 alias ls='ls -FA'
 
@@ -234,18 +234,6 @@ hook() {
 	else
 		dir=$(pwd)
 		echo "{ \"hook\" : \"${dir}\" }" > "$res"
-	fi
-}
-
-# command line project shortcut
-cc() {
-	project=$HOME/forgespace/CruiseControl
-	if [[ ! -d $project ]]; then
-		return
-	fi
-	if [[ $# -ge 3 ]]; then
-		cd "$project" || return
-		gradle run -Pin="$1/$2/$3"
 	fi
 }
 
