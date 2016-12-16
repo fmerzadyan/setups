@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/local/bin/bash
 # general development paths
 export PATH=/usr/local/bin:/usr/local/sbin:/bin:/usr/sbin:/usr/bin:/sbin
 export PATH=$PATH:$HOME
@@ -92,10 +92,12 @@ alias nem='run_android_emulator'
 alias iem='open -a Xcode && appc run -p ios'
 
 # stage all modified files but unstage .gitignore then show result
-alias git_add='git add -u && git reset HEAD .gitignore && git reset HEAD android/dev/TitaniumTest/assets/Resources/app.js && git status'
-alias git_update='git stash && git checkout master && git pull upstream master && git push origin master'
-alias git_new='git_new'
-alias git_peek='git_show_stash'
+alias ga='git_add'
+alias gum='git_update_master'
+alias gnb='git_new_branch'
+alias gsl='git stash list'
+alias gss='git_show_stash'
+alias gsa='git_stash_apply'
 
 # reload .bash_profile after changes
 # shellcheck disable=SC2139
@@ -205,18 +207,73 @@ run_android_emulator() {
 	fi
 }
 
-git_new() {
+git_add() {
+	git rev-parse --show-toplevel &> /dev/null
+	if [[ $? -ne 0 ]]; then
+		echo "error ~ not git repo"
+		return
+	fi
+	git add -u && git reset HEAD .gitignore && git reset HEAD android/dev/TitaniumTest/assets/Resources/app.js && git status
+}
+
+git_update_master() {
+	git rev-parse --show-toplevel &> /dev/null
+	if [[ $? -ne 0 ]]; then
+		echo "error ~ not git repo"
+		return
+	fi
+	git stash && git checkout master && git pull upstream master && git push origin master -f
+}
+
+git_new_branch() {
+	git rev-parse --show-toplevel &> /dev/null
+	if [[ $? -ne 0 ]]; then
+		echo "error ~ not git repo"
+		return
+	fi
 	if [[ ! -z $1 ]]; then
 		git stash
-		git checkout master
+		git checkout masterf
 		git checkout -b "$1"
 	fi
 }
 
 git_show_stash() {
-	if [[ ! -z $1 ]]; then
-		"git stash list && git stash show -p stash@{$1}"
+	# execute and redirect all output to /dev/null
+	git rev-parse --show-toplevel &> /dev/null
+	if [[ $? -ne 0 ]]; then
+		echo "error ~ not git repo"
+		return
 	fi
+	# execute and redirect all output to /dev/null
+	git stash show -p stash@{$1} &> /dev/null
+	if [[ $? -ne 0 ]]; then
+		echo "error ~ enter integer where 0 < i <= $(( $git_stash_list_length-1 ))"
+	else
+		# if execution had no errors then execute without redirect to /dev/null
+		git stash show -p stash@{$1}
+	fi
+}
+
+git_stash_apply() {
+	git rev-parse --show-toplevel &> /dev/null
+	if [[ $? -ne 0 ]]; then
+		echo "error ~ not git repo"
+		return
+	fi
+	git stash apply stash@{$1}
+}
+
+git_stash_list_length() {
+	git rev-parse --show-toplevel &> /dev/null
+	if [[ $? -ne 0 ]]; then
+		echo "error ~ not git repo"
+		return
+	fi
+	list=$(git stash list -n 100 &> /dev/null)
+	# strip tabs
+	size=$(echo "$list" | wc -l | sed 's/^[ \t]*//')
+	return $size
 }
 
 # TODO instead of overwriting .bash_res.json file only change specific value for "hook" key
