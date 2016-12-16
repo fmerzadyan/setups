@@ -105,7 +105,7 @@ alias gsa='git_stash_apply'
 # reload .bash_profile after changes
 # shellcheck disable=SC2139
 alias rl="source ~/.bash_profile"
-alias hclean='history -cw && echo '' > $HOME/.bash_history'
+alias hc='history -cw && echo '' > $HOME/.bash_history'
 
 alias .='cd ..'
 alias ..='cd ../..'
