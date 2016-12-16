@@ -92,6 +92,7 @@ alias nem='run_android_emulator'
 alias iem='open -a Xcode && appc run -p ios'
 
 # stage all modified files but unstage .gitignore then show result
+alias gd='git_diff'
 alias ga='git_add'
 alias gm='git_commit'
 alias gp='git_push'
@@ -207,6 +208,15 @@ run_android_emulator() {
 		vboxmanage list vms
 		insert_star
 	fi
+}
+
+git_diff() {
+	git rev-parse --show-toplevel &> /dev/null
+	if [[ $? -ne 0 ]]; then
+		echo "error ~ not git repo"
+		return
+	fi
+	git diff
 }
 
 git_add() {
