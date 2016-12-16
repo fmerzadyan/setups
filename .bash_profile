@@ -94,6 +94,7 @@ alias iem='open -a Xcode && appc run -p ios'
 # stage all modified files but unstage .gitignore then show result
 alias ga='git_add'
 alias gm='git_commit'
+alias gp='git_push'
 alias gum='git_update_master'
 alias gnb='git_new_branch'
 alias gsl='git stash list'
@@ -224,6 +225,15 @@ git_commit() {
 		return
 	fi
 	git commit -m "$1"
+}
+
+git_push() {
+	git rev-parse --show-toplevel &> /dev/null
+	if [[ $? -ne 0 ]]; then
+		echo "error ~ not git repo"
+		return
+	fi
+	git push $1 $2
 }
 
 git_update_master() {
