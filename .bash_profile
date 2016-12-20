@@ -92,6 +92,9 @@ alias nem='run_android_emulator'
 alias iem='open -a Xcode && appc run -p ios'
 
 # stage all modified files but unstage .gitignore then show result
+# would be good to see my alias/functions without visiting this file
+alias gl='git_log'
+alias gs='git status'
 alias gd='git_diff'
 alias ga='git_add'
 alias gm='git_commit'
@@ -101,6 +104,8 @@ alias gnb='git_new_branch'
 alias gsl='git stash list'
 alias gss='git_show_stash'
 alias gsa='git_stash_apply'
+alias gr='git reset'
+alias grh='git reset --hard'
 
 # reload .bash_profile after changes
 # shellcheck disable=SC2139
@@ -210,6 +215,15 @@ run_android_emulator() {
 	fi
 }
 
+git_log() {
+	git rev-parse --show-toplevel &> /dev/null
+	if [[ $? -ne 0 ]]; then
+		echo "error ~ not git repo"
+		return
+	fi
+	git log --oneline -$1
+}
+
 git_diff() {
 	git rev-parse --show-toplevel &> /dev/null
 	if [[ $? -ne 0 ]]; then
@@ -263,7 +277,7 @@ git_new_branch() {
 	fi
 	if [[ ! -z $1 ]]; then
 		git stash
-		git checkout masterf
+		git checkout master
 		git checkout -b "$1"
 	fi
 }
