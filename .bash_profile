@@ -12,7 +12,7 @@ export nsdk=$HOME/Library/Android/sdk
 export ANDROID_SDK=$nsdk
 export PATH=$PATH:$nsdk/tools
 export PATH=$PATH:$nsdk/platform-tools
-export ANDROID_PLATFORM=$nsdk/platforms/android-23
+# export ANDROID_PLATFORM=$nsdk/platforms/android-24
 
 # android ndk
 export nndk=$HOME/Library/Android/android-ndk-r12b
@@ -161,8 +161,6 @@ dynamic_theme() {
 PROMPT_COMMAND=dynamic_theme
 # set max number of working directory parts
 PROMPT_DIRTRIM=2
-# autocomplete cycling
-# bind TAB:menu-complete
 
 alias ls='ls -FA'
 
@@ -336,21 +334,4 @@ hook() {
 		dir=$(pwd)
 		echo "{ \"hook\" : \"${dir}\" }" > "$res"
 	fi
-}
-
-# some lines for when coworkers gets too roudy
-v() {
-	case "$1" in
-		1 )
-			say -v Tessa -f "$HOME/setups/rough_1.txt" &
-			;;
-		2 )
-			say -v Tessa -f "$HOME/setups/yomama_1.txt" &
-			;;
-		3 )
-			say -v Tessa -f "$HOME/setups/yomama_2.txt" &
-			;;
-		* )
-			;;
-	esac
 }
