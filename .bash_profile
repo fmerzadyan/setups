@@ -12,7 +12,7 @@ export nsdk=$HOME/Library/Android/sdk
 export ANDROID_SDK=$nsdk
 export PATH=$PATH:$nsdk/tools
 export PATH=$PATH:$nsdk/platform-tools
-# export ANDROID_PLATFORM=$nsdk/platforms/android-24
+export ANDROID_PLATFORM=$nsdk/platforms/android-23
 
 # android ndk
 export nndk=$HOME/Library/Android/android-ndk-r12b
@@ -62,7 +62,7 @@ code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args "$@";}
 # appcelerator titanium shortcuts
 # use quotation marks when calling to expand string e.g. cd "$tsdk"
 export tsdk="$HOME/Library/Application Support/Titanium"
-export tidev=$HOME/workspace/new_titanium_mobile
+export tidev=$HOME/workspace/timob
 export tibuild=$tidev/build
 
 alias t='cd "$tsdk" && ls'
