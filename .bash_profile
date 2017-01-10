@@ -63,16 +63,16 @@ code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args "$@";}
 # use quotation marks when calling to expand string e.g. cd "$tsdk"
 export tsdk="$HOME/Library/Application Support/Titanium"
 export tidev=$HOME/workspace/timob
-export tibuild=$tidev/build
-workspace=1
+export tibuild=$tidev/new_titanium_mobile
+workspace=0
 function sw() {
-	if [[ $workspace -eq 1 ]]; then
+	if [[ $workspace -eq 0 ]]; then
 		tidev=$HOME/workspace/new_titanium_mobile
-		export workspace=0
+		export workspace=1
 		echo "switched to $tidev"
 	else
 		tidev=$HOME/workspace/timob
-		export workspace=1
+		export workspace=0
 		echo "switched to $tidev"
 	fi
 }
