@@ -64,6 +64,18 @@ code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args "$@";}
 export tsdk="$HOME/Library/Application Support/Titanium"
 export tidev=$HOME/workspace/timob
 export tibuild=$tidev/build
+workspace=1
+function sw() {
+	if [[ $workspace -eq 1 ]]; then
+		tidev=$HOME/workspace/new_titanium_mobile
+		export workspace=0
+		echo "switched to $tidev"
+	else
+		tidev=$HOME/workspace/timob
+		export workspace=1
+		echo "switched to $tidev"
+	fi
+}
 
 alias t='cd "$tsdk" && ls'
 # scons build_jsca=0  # Do full build & packaging but omit JSCA generation 
@@ -83,6 +95,7 @@ alias w='cd $tidev && ls'
 alias swt='cd $HOME/Documents/Appcelerator_Studio_Workspace/test'
 alias f='cd $HOME/forgespace && ls'
 alias fv='cd $HOME/forgespace/vicinity'
+alias d='cd $HOME/Documents'
 alias dt='cd $HOME/Desktop'
 alias dl='cd $HOME/Downloads'
 alias ntest='cd $tidev/build && npm install && node scons.js test android'
@@ -116,6 +129,8 @@ alias .='cd ..'
 alias ..='cd ../..'
 alias ...='cd ../../..'
 alias ....='cd ../../../..'
+alias o='open .'
+alias a='cd $HOME/Desktop/assignment && o'
 
 # same bash history accross different terminals
 export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
