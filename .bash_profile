@@ -106,6 +106,8 @@ alias iem='open -a Xcode && appc run -p ios'
 
 # stage all modified files but unstage .gitignore then show result
 # would be good to see my alias/functions without visiting this file
+# to remove all local branches but keep master:
+# git branch | grep -v "master" | xargs git branch -D 
 alias gl='git_log'
 alias gs='git status'
 alias gd='git_diff'
