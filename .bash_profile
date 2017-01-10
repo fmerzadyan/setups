@@ -62,8 +62,8 @@ code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args "$@";}
 # appcelerator titanium shortcuts
 # use quotation marks when calling to expand string e.g. cd "$tsdk"
 export tsdk="$HOME/Library/Application Support/Titanium"
-export tidev=$HOME/workspace/timob
-export tibuild=$tidev/new_titanium_mobile
+export tidev=$HOME/workspace/new_titanium_mobile
+export tibuild=$tidev/build
 workspace=0
 function sw() {
 	if [[ $workspace -eq 0 ]]; then
