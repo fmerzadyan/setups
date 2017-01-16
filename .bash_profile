@@ -12,19 +12,18 @@ export nsdk=$HOME/Library/Android/sdk
 export ANDROID_SDK=$nsdk
 export PATH=$PATH:$nsdk/tools
 export PATH=$PATH:$nsdk/platform-tools
-export ANDROID_PLATFORM=$nsdk/platforms/android-23
+export ANDROID_PLATFORM=$nsdk/platforms/android-24
 
 # android ndk
 export nndk=$HOME/Library/Android/android-ndk-r12b
 export ANDROID_NDK=$nndk
 export PATH=$PATH:$nndk
 
-
 # gradle
 export GRADLE_HOME=/usr/local/opt/gradle/libexec
 
 # google apis
-export GOOGLE_APIS=$nsdk/add-ons/addon-google_apis-google-23
+export GOOGLE_APIS=$nsdk/add-ons/addon-google_apis-google-24
 
 # java
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk/Contents/Home
@@ -45,6 +44,9 @@ export NUM_CPUS=8
 # scala
 export PATH=$PATH:$HOME/scala/bin
 
+export GENYMOTION_HOME=/Applications/Genymotion.app/Contents/MacOS
+export PATH=$PATH:$GENYMOTION_HOME
+
 # git auto completion scripts
 # shellcheck source=/Users/fmerzadyan/setups/.git-completion.bash
 source $HOME/setups/.git-completion.bash
@@ -62,20 +64,9 @@ code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args "$@";}
 # appcelerator titanium shortcuts
 # use quotation marks when calling to expand string e.g. cd "$tsdk"
 export tsdk="$HOME/Library/Application Support/Titanium"
-export tidev=$HOME/workspace/new_titanium_mobile
+# replace tidev variable here
+export tidev=$HOME/workspace/timob
 export tibuild=$tidev/build
-workspace=0
-function sw() {
-	if [[ $workspace -eq 0 ]]; then
-		tidev=$HOME/workspace/new_titanium_mobile
-		export workspace=1
-		echo "switched to $tidev"
-	else
-		tidev=$HOME/workspace/timob
-		export workspace=0
-		echo "switched to $tidev"
-	fi
-}
 
 alias t='cd "$tsdk" && ls'
 # scons build_jsca=0  # Do full build & packaging but omit JSCA generation 
@@ -92,6 +83,7 @@ alias preprodprod='appc logout; appc config set defaultEnvironment preprodonprod
 alias setups='cd $HOME/setups'
 alias show='defaults write com.apple.finder AppleShowAllFiles -bool YES && killall Finder'
 alias w='cd $tidev && ls'
+alias u='cd $HOME/Documents/OneDrive/unispace && ls'
 alias swt='cd $HOME/Documents/Appcelerator_Studio_Workspace/test'
 alias f='cd $HOME/forgespace && ls'
 alias fv='cd $HOME/forgespace/vicinity'
@@ -101,6 +93,8 @@ alias dl='cd $HOME/Downloads'
 alias ntest='cd $tidev/build && npm install && node scons.js test android'
 alias wedit='cd $tidev && atom .'
 alias ndev='appc run -p android -T device'
+# requires GENYMOTION_HOME path set in PATH
+alias gm='genymotion &'
 alias nem='run_android_emulator'
 alias iem='open -a Xcode && appc run -p ios'
 
@@ -112,13 +106,14 @@ alias gl='git_log'
 alias gs='git status'
 alias gd='git_diff'
 alias ga='git_add'
-alias gm='git_commit'
+alias gc='git_commit'
 alias gp='git_push'
 alias gum='git_update_master'
 alias gnb='git_new_branch'
 alias gsl='git stash list'
 alias gss='git_show_stash'
 alias gsa='git_stash_apply'
+alias gsd='git_stash_drop'
 alias gr='git reset'
 alias grh='git reset --hard'
 
@@ -196,27 +191,17 @@ insert_star() {
 
 run_android_emulator() {
 	if [[ ( ! -z $1 ) && ( $1 =~ ^(1[7-9]|2[0-4])$ ) ]]; then
-		case "$1" in
+	filter=$1
+	if [[ "$1" == "latest" || "$1" == "-l" || "$1" == "l" ]]; then
+	filer=24
+	fi
+	echo $filter
+		case "$filter" in
 			24 )
-				ti clean && appc run -p android -T emulator --device-id 6P-API-24
+				ti clean && appc run -p android -T emulator --device-id GN6P-24
 				;;
 			23 )
-				ti clean && appc run -p android -T emulator --device-id S6-API-23
-				;;
-			22 )
-				ti clean && appc run -p android -T emulator --device-id S6-API-22
-				;;
-			21 )
-				ti clean && appc run -p android -T emulator --device-id S6-API-21-5.0.0
-				;;
-			19 )
-				ti clean && appc run -p android -T emulator --device-id S5-API-19
-				;;
-			18 )
-				ti clean && appc run -p android -T emulator --device-id Xperia-Z-API-18
-				;;
-			17 )
-				ti clean && appc run -p android -T emulator --device-id Xperia-Z-API-17
+				ti clean && appc run -p android -T emulator --device-id SGS7-23
 				;;
 		esac
 	else
@@ -321,6 +306,15 @@ git_stash_apply() {
 		return
 	fi
 	git stash apply stash@{$1}
+}
+
+git_stash_drop() {
+	git rev-parse --show-toplevel &> /dev/null
+	if [[ $? -ne 0 ]]; then
+		echo "error ~ not git repo"
+		return
+	fi
+	git stash drop stash@{$1}
 }
 
 git_stash_list_length() {
