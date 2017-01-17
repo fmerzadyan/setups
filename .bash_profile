@@ -67,6 +67,7 @@ export tsdk="$HOME/Library/Application Support/Titanium"
 # replace tidev variable here
 export tidev=$HOME/workspace/timob
 export tibuild=$tidev/build
+export titest=$HOME/workspace/studio
 
 alias t='cd "$tsdk" && ls'
 # scons build_jsca=0  # Do full build & packaging but omit JSCA generation 
@@ -84,7 +85,7 @@ alias setups='cd $HOME/setups'
 alias show='defaults write com.apple.finder AppleShowAllFiles -bool YES && killall Finder'
 alias w='cd $tidev && ls'
 alias u='cd $HOME/Documents/OneDrive/unispace && ls'
-alias swt='cd $HOME/Documents/Appcelerator_Studio_Workspace/test'
+alias wt='cd $titest/test'
 alias f='cd $HOME/forgespace && ls'
 alias fv='cd $HOME/forgespace/vicinity'
 alias d='cd $HOME/Documents'
