@@ -23,7 +23,7 @@ export PATH=$PATH:$nndk
 export GRADLE_HOME=/usr/local/opt/gradle/libexec
 
 # google apis
-export GOOGLE_APIS=$nsdk/add-ons/addon-google_apis-google-24
+export GOOGLE_APIS=$nsdk/add-ons/google_api_24
 
 # java
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk/Contents/Home
@@ -190,18 +190,19 @@ insert_star() {
 }
 
 run_android_emulator() {
-	if [[ ( ! -z $1 ) && ( $1 =~ ^(1[7-9]|2[0-4])$ ) ]]; then
+if [[ "$1" == "latest" || "$1" == "-l" || "$1" == "l" ]]; then
+	filter=24
+else 
 	filter=$1
-	if [[ "$1" == "latest" || "$1" == "-l" || "$1" == "l" ]]; then
-	filer=24
-	fi
-	echo $filter
+fi
+	# range of accepted answers: 17-25
+	if [[ ( ! -z $filter ) && ( $filter =~ ^(1[7-9]|2[0-5])$ ) ]]; then
 		case "$filter" in
 			24 )
 				ti clean && appc run -p android -T emulator --device-id GN6P-24
 				;;
-			23 )
-				ti clean && appc run -p android -T emulator --device-id SGS7-23
+			* )
+				echo "no avd has been created for that api level"
 				;;
 		esac
 	else
