@@ -42,10 +42,10 @@ setJavaVersion() {
 
 # node
 setNodeVersion() {
-	sudo npm cache clean -f
-	sudo npm install -g n
-	sudo n $1
-	node -v
+	npm cache clean -f
+	npm install -g n
+	n $1
+	echo "Node version: $(node -v). NPM version: $(npm -v)"
 }
 
 # ccache
