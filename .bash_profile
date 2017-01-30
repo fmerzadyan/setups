@@ -12,18 +12,21 @@ export nsdk=$HOME/Library/Android/sdk
 export ANDROID_SDK=$nsdk
 export PATH=$PATH:$nsdk/tools
 export PATH=$PATH:$nsdk/platform-tools
-export ANDROID_PLATFORM=$nsdk/platforms/android-24
+export ANDROID_PLATFORM=$nsdk/platforms/android-23
 
 # android ndk
 export nndk=$HOME/Library/Android/android-ndk-r12b
 export ANDROID_NDK=$nndk
 export PATH=$PATH:$nndk
+# trying to add the google play services
+export ngps=/Users/fmerzadyan/Library/Android/sdk/extras/google/m2repository/com/google/android/gms 
+export PATH=$PATH:$ngps
 
 # gradle
 export GRADLE_HOME=/usr/local/opt/gradle/libexec
 
 # google apis
-export GOOGLE_APIS=$nsdk/add-ons/google_api_24
+export GOOGLE_APIS=$nsdk/add-ons/addon-google_apis-google-23
 
 # java
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk/Contents/Home
@@ -35,6 +38,14 @@ setJavaVersion() {
 		echo "Reverting to default location"
 		JAVA_HOME=$(/usr/libexec/java_home -verbose) || return
 	fi
+}
+
+# node
+setNodeVersion() {
+	sudo npm cache clean -f
+	sudo npm install -g n
+	sudo n $1
+	node -v
 }
 
 # ccache
@@ -117,6 +128,7 @@ alias gsa='git_stash_apply'
 alias gsd='git_stash_drop'
 alias gr='git reset'
 alias grh='git reset --hard'
+alias pr='pull_request'
 
 # reload .bash_profile after changes
 # shellcheck disable=SC2139
@@ -329,6 +341,28 @@ git_stash_list_length() {
 	# strip tabs
 	size=$(echo "$list" | wc -l | sed 's/^[ \t]*//')
 	return $size
+}
+
+pull_request() {
+	git rev-parse --show-toplevel &> /dev/null
+	if [[ $? -ne 0 ]]; then
+		echo "error ~ not git repo"
+		return
+	fi
+	git stash save
+	git checkout master
+	# git fetch <remote_name> pull/<pr_id>/head:<branch_name>
+	# e.g. git fetch upstream pull/8759/head:pivot
+	# $1 is remote name, $2 is id of PR, $3 is branch name
+	# make upstream default $1
+	if [[ $# < 3 ]]; then
+		echo "remote is not given; default upstream is used."
+		$1='upstream'
+		$2=$1
+		$3=$2
+	fi
+	git fetch $1 pull/$2/head:$3
+	git checkout $3
 }
 
 # TODO instead of overwriting .bash_res.json file only change specific value for "hook" key
