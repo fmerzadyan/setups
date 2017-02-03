@@ -109,6 +109,8 @@ alias ndev='appc run -p android -T device'
 alias gm='genymotion &'
 alias nem='run_android_emulator'
 alias iem='open -a Xcode && appc run -p ios'
+# android adb restart
+alias nr='adb kill-server && adb start-server'
 
 # stage all modified files but unstage .gitignore then show result
 # would be good to see my alias/functions without visiting this file
