@@ -64,6 +64,8 @@ source $HOME/setups/.git-completion.bash
 # shellcheck source=/Users/fmerzadyan/setups/.git-prompt.sh
 source $HOME/setups/.git-prompt.sh
 
+source $HOME/setups/mother_bird
+
 # application/program shortcuts
 # sublime launcher
 alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
@@ -111,6 +113,7 @@ alias nem='run_android_emulator'
 alias iem='open -a Xcode && appc run -p ios'
 # android adb restart
 alias nr='adb kill-server && adb start-server'
+alias np='android_push'
 
 # stage all modified files but unstage .gitignore then show result
 # would be good to see my alias/functions without visiting this file
@@ -383,4 +386,10 @@ hook() {
 		dir=$(pwd)
 		echo "{ \"hook\" : \"${dir}\" }" > "$res"
 	fi
+}
+
+android_push() {
+	# todo - improve this function
+	# push file into Downloads folder in emulator
+	adb push $1 /sdcard/Download/$2
 }
