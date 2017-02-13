@@ -64,8 +64,6 @@ source $HOME/setups/.git-completion.bash
 # shellcheck source=/Users/fmerzadyan/setups/.git-prompt.sh
 source $HOME/setups/.git-prompt.sh
 
-alias mux="tmux kill-server; tmux; tmux source .tmux.conf"
-
 # application/program shortcuts
 # sublime launcher
 alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
