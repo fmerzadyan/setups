@@ -393,3 +393,7 @@ android_push() {
 	# push file into Downloads folder in emulator
 	adb push $1 /sdcard/Download/$2
 }
+
+libc++() {
+	cp -r /Users/fmerzadyan/workspace/templates/android.runtime.v8.x86/* /Users/fmerzadyan/workspace/timob/android/runtime/v8/libs/x86
+}
