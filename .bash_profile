@@ -64,7 +64,7 @@ source $HOME/setups/.git-completion.bash
 # shellcheck source=/Users/fmerzadyan/setups/.git-prompt.sh
 source $HOME/setups/.git-prompt.sh
 
-source $HOME/setups/mother_bird
+alias mux="tmux kill-server; tmux; tmux source .tmux.conf"
 
 # application/program shortcuts
 # sublime launcher
