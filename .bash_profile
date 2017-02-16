@@ -71,6 +71,7 @@ alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 export EDITOR="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl -w"
 # visual code
 code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args "$@";}
+alias a="atom ."
 
 # appcelerator titanium shortcuts
 # use quotation marks when calling to expand string e.g. cd "$tsdk"
@@ -143,7 +144,6 @@ alias ..='cd ../..'
 alias ...='cd ../../..'
 alias ....='cd ../../../..'
 alias o='open .'
-alias a='cd $HOME/Desktop/assignment && o'
 
 # same bash history accross different terminals
 export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
