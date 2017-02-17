@@ -126,6 +126,7 @@ alias gc='git_commit'
 alias gp='git_push'
 alias gum='git_update_master'
 alias gnb='git_new_branch'
+alias gdb='git_delete_branch'
 alias gsl='git stash list'
 alias gss='git_show_stash'
 alias gsa='git_stash_apply'
@@ -296,6 +297,18 @@ git_new_branch() {
 		git stash
 		git checkout master
 		git checkout -b "$1"
+	fi
+}
+
+git_delete_branch() {
+	git rev-parse --show-toplevel &> /dev/null
+	if [[ $? -ne 0 ]]; then
+		echo "error ~ not git repo"
+		return
+	fi
+	if [[ ! -z $1 ]]; then
+		git checkout master
+		git branch -D "$1"
 	fi
 }
 
