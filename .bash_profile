@@ -139,6 +139,7 @@ alias pr='pull_request'
 # shellcheck disable=SC2139
 alias rl="source ~/.bash_profile"
 alias hc='history -cw && echo '' > $HOME/.bash_history'
+alias wipe='hc && rl'
 
 alias .='cd ..'
 alias ..='cd ../..'
