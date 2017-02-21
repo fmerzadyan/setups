@@ -219,6 +219,9 @@ fi
 			24 )
 				appc run -p android -T emulator --device-id GN6P-24
 				;;
+			19 )
+				appc run -p android -T emulator --device-id GN5-19
+				;;
 			* )
 				echo "no avd has been created for that api level"
 				;;
