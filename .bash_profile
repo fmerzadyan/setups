@@ -412,3 +412,7 @@ android_push() {
 libc++() {
 	cp -r /Users/fmerzadyan/workspace/templates/android.runtime.v8.x86/* /Users/fmerzadyan/workspace/timob/android/runtime/v8/libs/x86
 }
+
+log_template() {
+	cp -r /Users/fmerzadyan/workspace/templates/titanium.src.java.com/frankify /Users/fmerzadyan/workspace/timob/android/titanium/src/java/com/
+}
