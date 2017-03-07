@@ -413,6 +413,7 @@ libc++() {
 	cp -r /Users/fmerzadyan/workspace/templates/android.runtime.v8.x86/* /Users/fmerzadyan/workspace/timob/android/runtime/v8/libs/x86
 }
 
-log_template() {
+template_timob() {
 	cp -r /Users/fmerzadyan/workspace/templates/titanium.src.java.com/frankify /Users/fmerzadyan/workspace/timob/android/titanium/src/java/com/
+	touch /Users/fmerzadyan/workspace/timob/android/dev/TitaniumTest/assets/app.json
 }
