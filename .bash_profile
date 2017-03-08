@@ -19,7 +19,7 @@ export nndk=$HOME/Library/Android/android-ndk-r12b
 export ANDROID_NDK=$nndk
 export PATH=$PATH:$nndk
 # trying to add the google play services
-export ngps=/Users/fmerzadyan/Library/Android/sdk/extras/google/m2repository/com/google/android/gms 
+export ngps=/Users/fmerzadyan/Library/Android/sdk/extras/google/m2repository/com/google/android/gms
 export PATH=$PATH:$ngps
 
 # gradle
@@ -82,7 +82,7 @@ export tibuild=$tidev/build
 export titest=$HOME/workspace/studio
 
 alias t='cd "$tsdk" && ls'
-# scons build_jsca=0  # Do full build & packaging but omit JSCA generation 
+# scons build_jsca=0  # Do full build & packaging but omit JSCA generation
 alias sconsself='scons build_jsca=0'
 alias sconsb='node "$tibuild"/scons.js build'
 alias sconsp='node "$tibuild"/scons.js package'
@@ -117,7 +117,7 @@ alias np='android_push'
 # stage all modified files but unstage .gitignore then show result
 # would be good to see my alias/functions without visiting this file
 # to remove all local branches but keep master:
-# git branch | grep -v "master" | xargs git branch -D 
+# git branch | grep -v "master" | xargs git branch -D
 alias gl='git_log'
 alias gs='git status'
 alias gd='git_diff'
@@ -210,7 +210,7 @@ insert_star() {
 run_android_emulator() {
 if [[ "$1" == "latest" || "$1" == "-l" || "$1" == "l" ]]; then
 	filter=24
-else 
+else
 	filter=$1
 fi
 	# range of accepted answers: 17-25
@@ -395,7 +395,7 @@ hook() {
 	# matches any case of pull or p
 	if [[ $1 =~ ^[Pp]+[Uu]+[Ll]{2}|[Pp]$ ]]; then
 		# shellcheck disable=SC2002
-		# hook is the key 
+		# hook is the key
 		cd "$(cat "$res" | jq -r ".hook")" || return
 	else
 		dir=$(pwd)
