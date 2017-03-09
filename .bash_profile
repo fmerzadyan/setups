@@ -29,7 +29,7 @@ export GRADLE_HOME=/usr/local/opt/gradle/libexec
 export GOOGLE_APIS=$nsdk/add-ons/addon-google_apis-google-23
 
 # java
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk/Contents/Home
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk.jdk/Contents/Home
 setJavaVersion() {
 	JAVA_HOME=$(/usr/libexec/java_home -v $1)
 	if [[ $? -eq 0 ]]; then
