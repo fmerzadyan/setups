@@ -28,17 +28,17 @@ export GRADLE_HOME=/usr/local/opt/gradle/libexec
 # google apis
 export GOOGLE_APIS=$nsdk/add-ons/addon-google_apis-google-23
 
-# java
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk.jdk/Contents/Home
-setJavaVersion() {
-	JAVA_HOME=$(/usr/libexec/java_home -v $1)
-	if [[ $? -eq 0 ]]; then
-		echo "successfully set JAVA_HOME as $JAVA_HOME"
-	else
-		echo "Reverting to default location"
-		JAVA_HOME=$(/usr/libexec/java_home -verbose) || return
-	fi
-}
+# # java
+# export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk.jdk/Contents/Home
+# setJavaVersion() {
+# 	JAVA_HOME=$(/usr/libexec/java_home -v $1)
+# 	if [[ $? -eq 0 ]]; then
+# 		echo "successfully set JAVA_HOME as $JAVA_HOME"
+# 	else
+# 		echo "Reverting to default location"
+# 		JAVA_HOME=$(/usr/libexec/java_home -verbose) || return
+# 	fi
+# }
 
 # node
 setNodeVersion() {
