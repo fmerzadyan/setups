@@ -385,9 +385,8 @@ pull_request() {
 	git checkout $3
 }
 
-# TODO instead of overwriting .bash_res.json file only change specific value for "hook" key
 hook() {
-	res=$HOME/.bash_res.json
+	res=$HOME/setups/.hook_res.json
 	if [[ ! -e $res ]]; then
 		echo -e "$res does not exist so creating"
 		touch "$res"
