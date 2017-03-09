@@ -385,6 +385,7 @@ pull_request() {
 	git checkout $3
 }
 
+# this function requires jq; `brew install jq` to install jq
 hook() {
 	res=$HOME/setups/.hook_res.json
 	if [[ ! -e $res ]]; then
