@@ -15,7 +15,7 @@ export PATH=$PATH:$nsdk/platform-tools
 export ANDROID_PLATFORM=$nsdk/platforms/android-23
 
 # android ndk
-export nndk=$HOME/Library/Android/android-ndk-r12b
+export nndk=$HOME/Library/Android/ndk
 export ANDROID_NDK=$nndk
 export PATH=$PATH:$nndk
 # trying to add the google play services
