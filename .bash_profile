@@ -164,10 +164,10 @@ fi
 	if [[ ( ! -z $filter ) && ( $filter =~ ^(1[7-9]|2[0-5])$ ) ]]; then
 		case "$filter" in
 			24 )
-				appc run -p android -T emulator --device-id GN6P-24
+				appc run -p android -T emulator --device-id "Google Nexus 6P - 7.0.0 - API 24 - 1440x2560"
 				;;
-			19 )
-				appc run -p android -T emulator --device-id GN5-19
+			23 )
+				appc run -p android -T emulator --device-id "Google Nexus 6 - 6.0.0 - API 23 - 1440x2560"
 				;;
 			* )
 				echo "no avd has been created for that api level"
