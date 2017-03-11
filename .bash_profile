@@ -1,62 +1,9 @@
 #!/usr/local/bin/bash
 # general development paths
 export PATH=/usr/local/bin:/usr/local/sbin:/bin:/usr/sbin:/usr/bin:/sbin
-export PATH=$PATH:$HOME
-export PATH=$PATH:$HOME/workspace
-
-export PATH=$PATH:$HOME/.rvm/scripts/rvm
-
-# android sdk
-export nsdk=$HOME/Library/Android/sdk
-# SDK looks for ANDROID_SDK/NDK in PATH
-export ANDROID_SDK=$nsdk
-export PATH=$PATH:$nsdk/tools
-export PATH=$PATH:$nsdk/platform-tools
-export ANDROID_PLATFORM=$nsdk/platforms/android-23
-
-# android ndk
-export nndk=$HOME/Library/Android/ndk
-export ANDROID_NDK=$nndk
-export PATH=$PATH:$nndk
-# trying to add the google play services
-export ngps=/Users/fmerzadyan/Library/Android/sdk/extras/google/m2repository/com/google/android/gms
-export PATH=$PATH:$ngps
-
-# gradle
-export GRADLE_HOME=/usr/local/opt/gradle/libexec
-
-# google apis
-export GOOGLE_APIS=$nsdk/add-ons/addon-google_apis-google-23
-
-# # java
-# export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk.jdk/Contents/Home
-# setJavaVersion() {
-# 	JAVA_HOME=$(/usr/libexec/java_home -v $1)
-# 	if [[ $? -eq 0 ]]; then
-# 		echo "successfully set JAVA_HOME as $JAVA_HOME"
-# 	else
-# 		echo "Reverting to default location"
-# 		JAVA_HOME=$(/usr/libexec/java_home -verbose) || return
-# 	fi
-# }
-
-# node
-setNodeVersion() {
-	npm cache clean -f
-	npm install -g n
-	n $1
-	echo "Node version: $(node -v). NPM version: $(npm -v)"
-}
-
-# ccache
-export NDK_CCACHE=/usr/local/bin/ccache
-export NUM_CPUS=8
-
-# scala
-export PATH=$PATH:$HOME/scala/bin
-
-export GENYMOTION_HOME=/Applications/Genymotion.app/Contents/MacOS
-export PATH=$PATH:$GENYMOTION_HOME
+export ANDROID_SDK=~/Library/Android/sdk
+export ANDROID_PLATFORM=$ANDROID_SDK/platforms/android-23
+export ANDROID_NDK=~/Library/Android/ndk
 
 # git auto completion scripts
 # shellcheck source=/Users/fmerzadyan/setups/.git-completion.bash
