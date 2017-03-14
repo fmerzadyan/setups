@@ -5,6 +5,9 @@ export ANDROID_SDK=~/Library/Android/sdk
 export ANDROID_PLATFORM=$ANDROID_SDK/platforms/android-23
 export ANDROID_NDK=~/Library/Android/ndk
 
+export NDK_CCACHE=/usr/local/bin/ccache
+export NUM_CPUS=8
+
 # git auto completion scripts
 # shellcheck source=/Users/fmerzadyan/setups/.git-completion.bash
 source $HOME/setups/.git-completion.bash
