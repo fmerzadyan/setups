@@ -38,9 +38,9 @@ alias sconsb='node "$tibuild"/scons.js build'
 alias sconsp='node "$tibuild"/scons.js package'
 alias sconsi='node "$tibuild"/scons.js install'
 alias scons='sconsb && sconsp && sconsi'
-alias prod='appc logout; appc config set defaultEnvironment production; APPC_ENV=production appc login'
-alias preprod='appc logout; appc config set defaultEnvironment preproduction; APPC_ENV=preproduction appc login'
-alias preprodprod='appc logout; appc config set defaultEnvironment preprodonprod; APPC_ENV=preprodonprod appc login'
+alias prod='appc logout; appc config set defaultEnvironment production; APPC_ENV=production appc login --username fmerzadyan@axway.com'
+alias preprod='appc logout; appc config set defaultEnvironment preproduction; APPC_ENV=preproduction appc login --username fmerzadyan@axway.com'
+alias preprodprod='appc logout; appc config set defaultEnvironment preprodonprod; APPC_ENV=preprodonprod appc login --username fmerzadyan@axway.com'
 
 # development shortcuts
 alias setups='cd $HOME/setups'
