@@ -1,0 +1,23 @@
+## atom:
+###### atom plugins to install via terminal -
+`apm install activate-power-mode \
+  highlight-selected \
+  linter \
+  linter-eslint \
+  linter-jshint \
+  minimap \
+  minimap-bookmarks \
+  minimap-cursorline \
+  minimap-find-and-replace \
+  minimap-git-diff \
+  minimap-highlight-selected \
+  minimap-linter \
+  minimap-selection \
+  seti-icons \
+  markdown-preview-plus`
+
+## bash:
+###### includes ~/setups/.bash_profile in ~/.bash_profile as appendage -
+`cat <<EOT>> ~/.bash_profile
+source ~/setups/.bash_profile
+EOT`
