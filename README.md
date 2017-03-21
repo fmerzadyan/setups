@@ -1,6 +1,6 @@
 ## atom:
 ###### atom plugins to install via terminal -
-`apm install activate-power-mode \
+`apm install
   highlight-selected \
   linter \
   linter-eslint \
@@ -14,7 +14,8 @@
   minimap-linter \
   minimap-selection \
   seti-icons \
-  markdown-preview-plus`
+  markdown-preview-plus \
+  highlight-line`
 
 ## bash:
 ###### includes ~/setups/.bash_profile in ~/.bash_profile as appendage -
