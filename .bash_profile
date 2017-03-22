@@ -4,6 +4,9 @@ export PATH=/usr/local/bin:/usr/local/sbin:/bin:/usr/sbin:/usr/bin:/sbin
 export ANDROID_SDK=~/Library/Android/sdk
 export ANDROID_PLATFORM=$ANDROID_SDK/platforms/android-23
 export ANDROID_NDK=~/Library/Android/ndk
+export PATH=$PATH:~/Library/Android/sdk/platform-tools
+export PATH=$PATH:~/Library/Android/sdk/tools
+export PATH=$PATH:~/Library/Android/sdk/tools/bin
 
 export NDK_CCACHE=/usr/local/bin/ccache
 export NUM_CPUS=8
