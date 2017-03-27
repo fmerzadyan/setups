@@ -168,7 +168,7 @@ if [[ "$1" == "latest" || "$1" == "-l" || "$1" == "l" ]]; then
 else
 	filter=$1
 fi
-	# range of accepted answers: 17-25
+	# range of accepted answers: 17-24
 	if [[ ( ! -z $filter ) && ( $filter =~ ^(1[7-9]|2[0-5])$ ) ]]; then
 		case "$filter" in
 			24 )
