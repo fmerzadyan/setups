@@ -135,6 +135,7 @@ export LSCOLORS=ExFxBxDxCxegedabagacad
 # changed from using variables because of issues with globular expansions/substitutions
 
 dynamic_theme() {
+	__git_ps1_json
 	if [[ $PWD != "$HOME" ]]; then
 		export PS1='\[\033[0;91m\]\w\[\033[0;31m\] $(__git_ps1 "~ %s") \[\033[1;94m\]\$ \[\033[0;92m\]'
 	else
@@ -143,7 +144,7 @@ dynamic_theme() {
 }
 
 # invoke function after every terminal command input
-PROMPT_COMMAND=dynamic_theme;__git_ps1_json
+PROMPT_COMMAND=dynamic_theme
 # set max number of working directory parts
 PROMPT_DIRTRIM=2
 
