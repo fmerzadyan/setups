@@ -136,7 +136,7 @@ export LSCOLORS=ExFxBxDxCxegedabagacad
 
 dynamic_theme() {
 	if [[ $PWD != "$HOME" ]]; then
-		export PS1='\[\033[0;91m\]\w\[\033[0;31m\] $(__git_ps1 "~ %s") \[\033[1;94m\]\$ \[\033[0;92m\]\[\e[0;34m\]\[\e[0;34m\]$(__git_ps1_json)'
+		export PS1='\[\033[0;91m\]\w\[\033[0;31m\] $(__git_ps1 "~ %s") \[\033[1;94m\]\$ \[\033[0;92m\]$(__git_ps1_json)'
 	else
 		export PS1='\[\033[0;31m\] $(__git_ps1 "~ %s") \[\033[1;94m\]\$ \[\033[0;92m\]'
 	fi
