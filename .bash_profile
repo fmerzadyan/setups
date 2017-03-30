@@ -136,14 +136,14 @@ export LSCOLORS=ExFxBxDxCxegedabagacad
 
 dynamic_theme() {
 	if [[ $PWD != "$HOME" ]]; then
-		export PS1='\[\033[0;91m\]\w\[\033[0;31m\] $(__git_ps1 "~ %s") \[\033[1;94m\]\$ \[\033[0;92m\]$(__git_ps1_json)'
+		export PS1='\[\033[0;91m\]\w\[\033[0;31m\] $(__git_ps1 "~ %s") \[\033[1;94m\]\$ \[\033[0;92m\]'
 	else
 		export PS1='\[\033[0;31m\] $(__git_ps1 "~ %s") \[\033[1;94m\]\$ \[\033[0;92m\]'
 	fi
 }
 
 # invoke function after every terminal command input
-PROMPT_COMMAND=dynamic_theme
+PROMPT_COMMAND=dynamic_theme;__git_ps1_json
 # set max number of working directory parts
 PROMPT_DIRTRIM=2
 
