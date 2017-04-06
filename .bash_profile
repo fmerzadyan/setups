@@ -344,18 +344,50 @@ pull_request() {
 # this function requires jq; `brew install jq` to install jq
 hook() {
 	res=$HOME/setups/.hook_res.json
+	# create and write to resource file
 	if [[ ! -e $res ]]; then
 		echo -e "$res does not exist so creating"
 		touch "$res"
+		echo "{ \"hook\": [] }" > "$res"
 	fi
-	# matches any case of pull or p
-	if [[ $1 =~ ^[Pp]+[Uu]+[Ll]{2}|[Pp]$ ]]; then
-		# shellcheck disable=SC2002
-		# hook is the key
-		cd "$(cat "$res" | jq -r ".hook")" || return
+	# show contents of resource file
+	if [[ $1 =~ ^[Ss]?[Hh]?[Oo][Ww]|[Ss]$ ]]; then
+		output=$(cat "$res" | jq ".hook")
+		echo $output
+		return
+	fi
+	# hook pull particular directory
+	if [[ $1 =~ ^[Pp]?[Uu]?[Ll]{2}|[Pp]$ && $2 =~ ^-?[0-9]$ ]]; then
+			echo "hook pull no."
+			if [[ $2 -lt 0 ]]; then
+				return
+			fi
+			output=$(cat "$res" | jq ".hook[$2]")
+			temp="${output%\"}"
+			temp="${temp#\"}"
+			cd "$temp"
+	# hook pull the latest directory
+elif [[ $1 =~ ^[Pp]?[Uu]?[Ll]{2}|[Pp]$ ]]; then
+			len=$(cat "$res" | jq ".[] | length")
+			last=$(expr $len - 1)
+			output=$(cat "$res" | jq ".hook[$last]")
+			# replacing double speech mark from output to literal speech marks preventing cd
+			temp="${output%\"}"
+			temp="${temp#\"}"
+			cd "$temp"
+	# replace particular directory with current directory
+	elif [[ $1 =~ ^-?[0-9]$ ]]; then
+		if [[ $1 -lt 0 ]]; then
+			return
+		fi
+		dirEntry=$(pwd)
+		output=$(cat "$res" | jq ".hook[$1]=\"$dirEntry\"")
+		echo $output > "$res"
+		# append directory to resource file
 	else
-		dir=$(pwd)
-		echo "{ \"hook\" : \"${dir}\" }" > "$res"
+		dirEntry=$(pwd)
+		output=$(cat "$res" | jq ".hook |= .+ [\"$dirEntry\"]")
+		echo $output > "$res"
 	fi
 }
 
