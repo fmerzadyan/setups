@@ -2,7 +2,7 @@
 # general development paths
 export PATH=/usr/local/bin:/usr/local/sbin:/bin:/usr/sbin:/usr/bin:/sbin
 export ANDROID_SDK=~/Library/Android/sdk
-export ANDROID_PLATFORM=$ANDROID_SDK/platforms/android-23
+export ANDROID_PLATFORM=$ANDROID_SDK/platforms
 export ANDROID_NDK=~/Library/Android/ndk
 export PATH=$PATH:~/Library/Android/sdk/platform-tools
 export PATH=$PATH:~/Library/Android/sdk/tools
@@ -404,4 +404,15 @@ libc++() {
 template_timob() {
 	cp -r /Users/fmerzadyan/workspace/templates/titanium.src.java.com/frankify /Users/fmerzadyan/workspace/timob/android/titanium/src/java/com/
 	touch /Users/fmerzadyan/workspace/timob/android/dev/TitaniumTest/assets/app.json
+}
+
+ncli() {
+	cp  ~/workspace/timob/android/cli/commands/_build.js  '/Users/fmerzadyan/Library/Application Support/Titanium/mobilesdk/osx/6.2.0/android/cli/commands/_build.js'
+	cp ~/workspace/timob/android/templates/build/AndroidManifest.xml '/Users/fmerzadyan/Library/Application Support/Titanium/mobilesdk/osx/6.2.0/android/templates/build/AndroidManifest.xml'
+	cp ~/workspace/timob/android/cli/lib/AndroidManifest.js '/Users/fmerzadyan/Library/Application Support/Titanium/mobilesdk/osx/6.2.0/android/cli/lib/AndroidManifest.js'
+	cp ~/workspace/timob/node_modules/titanium-sdk/lib/android.js '/Users/fmerzadyan/Library/Application Support/Titanium/mobilesdk/osx/6.2.0/node_modules/titanium-sdk/lib/android.js '
+}
+
+nclibo() {
+	ncli && wst && appc ti clean && ndev --build-only && echo "test msg AndroidManifest.xml" && cat build/android/AndroidManifest.xml
 }
