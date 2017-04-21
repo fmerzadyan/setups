@@ -60,7 +60,7 @@ alias dt='cd $HOME/Desktop'
 alias dl='cd $HOME/Downloads'
 alias ntest='cd $tidev/build && npm install && node scons.js test android'
 alias wedit='cd $tidev && atom .'
-alias ndev='appc run -p android -T device'
+alias ndev='appc run -p android -T device -l debug'
 # requires GENYMOTION_HOME path set in PATH
 alias gm='genymotion &'
 alias nem='run_android_emulator'
@@ -173,10 +173,10 @@ fi
 	if [[ ( ! -z $filter ) && ( $filter =~ ^(1[7-9]|2[0-5])$ ) ]]; then
 		case "$filter" in
 			24 )
-				appc run -p android -T emulator --device-id "Google Nexus 6P - 7.0.0 - API 24 - 1440x2560"
+				appc run -p android -T emulator --device-id "Google Nexus 6P - 7.0.0 - API 24 - 1440x2560" -l debug
 				;;
 			23 )
-				appc run -p android -T emulator --device-id "Google Nexus 6 - 6.0.0 - API 23 - 1440x2560"
+				appc run -p android -T emulator --device-id "Google Nexus 6 - 6.0.0 - API 23 - 1440x2560" -l debug
 				;;
 			* )
 				echo "no avd has been created for that api level"
@@ -415,4 +415,15 @@ ncli() {
 
 nclibo() {
 	ncli && wst && appc ti clean && ndev --build-only && echo "test msg AndroidManifest.xml" && cat build/android/AndroidManifest.xml
+}
+
+standby() {
+	adb shell dumpsys battery unplug
+	adb shell am set-inactive com.titanium.test true
+	adb shell am set-inactive com.titanium.test  false
+	adb shell am get-inactive com.titanium.test
+}
+
+doze() {
+	adb shell dumpsys deviceidle force-idle
 }
