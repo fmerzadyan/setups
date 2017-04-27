@@ -411,7 +411,7 @@ ncli() {
 	cp  ~/workspace/timob/android/cli/commands/_build.js  '/Users/fmerzadyan/Library/Application Support/Titanium/mobilesdk/osx/6.2.0/android/cli/commands/_build.js'
 	cp ~/workspace/timob/android/templates/build/AndroidManifest.xml '/Users/fmerzadyan/Library/Application Support/Titanium/mobilesdk/osx/6.2.0/android/templates/build/AndroidManifest.xml'
 	cp ~/workspace/timob/android/cli/lib/AndroidManifest.js '/Users/fmerzadyan/Library/Application Support/Titanium/mobilesdk/osx/6.2.0/android/cli/lib/AndroidManifest.js'
-	cp ~/workspace/timob/node_modules/titanium-sdk/lib/android.js '/Users/fmerzadyan/Library/Application Support/Titanium/mobilesdk/osx/6.2.0/node_modules/titanium-sdk/lib/android.js '
+	# cp ~/workspace/timob/node_modules/node-titanium-sdk/lib/android.js '/Users/fmerzadyan/Library/Application Support/Titanium/mobilesdk/osx/6.2.0/node_modules/node-titanium-sdk/lib/android.js '
 }
 
 nclibo() {
