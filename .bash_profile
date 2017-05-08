@@ -404,7 +404,7 @@ libc++() {
 }
 
 template_timob() {
-	cp -r /Users/fmerzadyan/workspace/templates/titanium.src.java.com/frankify /Users/fmerzadyan/workspace/timob/android/titanium/src/java/com/
+	cp -r /Users/fmerzadyan/workspace/templates/titanium.src.java.com /Users/fmerzadyan/workspace/timob/android/titanium/src/java/com/
 	touch /Users/fmerzadyan/workspace/timob/android/dev/TitaniumTest/assets/app.json
 }
 
