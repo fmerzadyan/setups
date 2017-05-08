@@ -88,7 +88,7 @@ alias gss='git_show_stash'
 alias gsa='git_stash_apply'
 alias gsd='git_stash_drop'
 alias gr='git reset'
-alias grh='git reset --hard'
+alias grh='git reset HEAD --hard'
 alias pr='pull_request'
 
 # reload .bash_profile after changes
