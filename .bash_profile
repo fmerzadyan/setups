@@ -102,6 +102,7 @@ alias ..='cd ../..'
 alias ...='cd ../../..'
 alias ....='cd ../../../..'
 alias o='open .'
+alias yt='dl && youtube-dl'
 
 # same bash history accross different terminals
 export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
