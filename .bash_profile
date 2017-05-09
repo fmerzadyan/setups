@@ -346,8 +346,8 @@ pull_request() {
 # this function requires jq; `brew install jq` to install jq
 hook() {
 	res=$HOME/setups/.hook_res.json
-	# create and write to resource file
-	if [[ ! -e $res ]]; then
+	# create and write to resource file if res file does not exist or is empty
+	if [[ ! -e $res || ! -s "$res" ]]; then
 		echo -e "$res does not exist so creating"
 		touch "$res"
 		echo "{ \"hook\": [] }" > "$res"
@@ -357,10 +357,8 @@ hook() {
 		output=$(cat "$res" | jq ".hook")
 		echo $output
 		return
-	fi
 	# hook pull particular directory
-	if [[ $1 =~ ^[Pp]?[Uu]?[Ll]{2}|[Pp]$ && $2 =~ ^-?[0-9]$ ]]; then
-			echo "hook pull no."
+	elif [[ $1 =~ ^[Pp]?[Uu]?[Ll]{2}|[Pp]$ && $2 =~ ^-?[0-9]$ ]]; then
 			if [[ $2 -lt 0 ]]; then
 				return
 			fi
@@ -369,7 +367,7 @@ hook() {
 			temp="${temp#\"}"
 			cd "$temp"
 	# hook pull the latest directory
-elif [[ $1 =~ ^[Pp]?[Uu]?[Ll]{2}|[Pp]$ ]]; then
+	elif [[ $1 =~ ^[Pp]?[Uu]?[Ll]{2}|[Pp]$ ]]; then
 			len=$(cat "$res" | jq ".[] | length")
 			last=$(expr $len - 1)
 			output=$(cat "$res" | jq ".hook[$last]")
