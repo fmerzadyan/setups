@@ -427,3 +427,13 @@ standby() {
 doze() {
 	adb shell dumpsys deviceidle force-idle
 }
+
+lines_added=5
+git_ignore_file="/Users/fmerzadyan/workspace/timob/.gitignore"
+append_to_git_ignore() {
+echo "node_modules" >> $git_ignore_file
+echo "android/module*.xml" >> $git_ignore_file
+echo "android/.idea" >> $git_ignore_file
+echo "android/dev/TitaniumTest" >> $git_ignore_file
+echo "android/out" >> $git_ignore_file
+}
