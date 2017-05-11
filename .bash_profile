@@ -7,6 +7,8 @@ export ANDROID_NDK=~/Library/Android/ndk
 export PATH=$PATH:~/Library/Android/sdk/platform-tools
 export PATH=$PATH:~/Library/Android/sdk/tools
 export PATH=$PATH:~/Library/Android/sdk/tools/bin
+alias nsdk="cd $ANDROID_SDK"
+alias nndk="cd $ANDROID_NDK"
 
 export NDK_CCACHE=/usr/local/bin/ccache
 export NUM_CPUS=8
