@@ -437,3 +437,16 @@ echo "android/.idea" >> $git_ignore_file
 echo "android/dev/TitaniumTest" >> $git_ignore_file
 echo "android/out" >> $git_ignore_file
 }
+
+# fix for 'Unable to exedute dex: multiple dex files defined' ERROR - appcompat/BuildConfig
+alias bc=remove_appcompat_build_config
+remove_appcompat_build_config() {
+	wt
+	cd android/modules/appcompat/lib/
+	jar xf android-support-v7-appcompat.jar
+	cd android/support/v7/appcompat
+	rm BuildConfig.class
+	....
+	jar cf android-support-v7-appcompat.jar android
+	rm -fr android
+}
