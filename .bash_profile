@@ -408,6 +408,11 @@ template_timob() {
 	touch /Users/fmerzadyan/workspace/timob/android/dev/TitaniumTest/assets/app.json
 }
 
+# copy files into 6.2.0 live SDK for instant changes
+# android/cli/commands/_build.js
+# android/templates/build/AndroidManifest.xml
+# android/cli/lib/AndroidManifest.js
+# node_modules/node-titanium-sdk/lib/android.js
 ncli() {
 	cp  ~/workspace/timob/android/cli/commands/_build.js  '/Users/fmerzadyan/Library/Application Support/Titanium/mobilesdk/osx/6.2.0/android/cli/commands/_build.js'
 	cp ~/workspace/timob/android/templates/build/AndroidManifest.xml '/Users/fmerzadyan/Library/Application Support/Titanium/mobilesdk/osx/6.2.0/android/templates/build/AndroidManifest.xml'
@@ -415,6 +420,8 @@ ncli() {
 	cp ~/workspace/timob/node_modules/node-titanium-sdk/lib/android.js '/Users/fmerzadyan/Library/Application Support/Titanium/mobilesdk/osx/6.2.0/node_modules/node-titanium-sdk/lib/android.js '
 }
 
+# copy files into 6.2.0 live SDK for instant changes, navigates to workspace/studio/test,
+# cleans the build and builds app on connected Android device then outputs contents of buid/android/AndroidManifest.xml
 nclibo() {
 	ncli && wst && appc ti clean && ndev --build-only && echo "** test msg AndroidManifest.xml **" && cat build/android/AndroidManifest.xml
 }
