@@ -63,11 +63,11 @@ alias dt='cd $HOME/Desktop'
 alias dl='cd $HOME/Downloads'
 alias ntest='cd $tidev/build && npm install && node scons.js test android'
 alias wedit='cd $tidev && atom .'
-alias ndev='appc run -p android -T device -l debug'
+alias ndev='appc run -p android -T device -l trace'
 # requires GENYMOTION_HOME path set in PATH
 alias gm='genymotion &'
 alias nem='run_android_emulator'
-alias iem='open -a Xcode && appc run -p ios'
+alias iem='open -a Xcode && appc run -p ios -l trace'
 # android adb restart
 alias nr='adb kill-server && adb start-server'
 alias np='android_push'
