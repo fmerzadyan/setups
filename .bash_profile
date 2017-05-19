@@ -459,3 +459,16 @@ remove_appcompat_build_config() {
 	jar cf android-support-v7-appcompat.jar android
 	rm -fr android
 }
+
+# update android/dev/TitaniumTest/AndroidManifest.xml
+alias utt=update_titanium_test
+update_titanium_test() {
+	cd /Users/fmerzadyan/workspace/timob/android/dev/TitaniumTest/src/com/titanium/test
+	mv TitaniumtestApplication.java TitaniumTestApplication.java
+	mv TitaniumtestActivity.java TitaniumTestActivity.java
+	mv TitaniumtestAppInfo.java TitaniumTestAppInfo.java
+	cp /Users/fmerzadyan/workspace/templates/android.dev.TitaniumTest/AndroidManifest.xml /Users/fmerzadyan/workspace/timob/android/dev/TitaniumTest/AndroidManifest.xml
+	cp /Users/fmerzadyan/workspace/templates/android.dev.TitaniumTest/TitaniumTestApplication.java /Users/fmerzadyan/workspace/timob/android/dev/TitaniumTest/src/com/titanium/test/TitaniumTestApplication.java
+	cp /Users/fmerzadyan/workspace/templates/android.dev.TitaniumTest/TitaniumTestActivity.java /Users/fmerzadyan/workspace/timob/android/dev/TitaniumTest/src/com/titanium/test/TitaniumTestActivity.java
+	cp /Users/fmerzadyan/workspace/templates/android.dev.TitaniumTest/TitaniumTestAppInfo.java /Users/fmerzadyan/workspace/timob/android/dev/TitaniumTest/src/com/titanium/test/TitaniumTestAppInfo.java
+}
