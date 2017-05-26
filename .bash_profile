@@ -381,6 +381,9 @@ hook() {
 		dirEntry=$(pwd)
 		output=$(cat "$res" | jq ".hook[$1]=\"$dirEntry\"")
 		echo $output > "$res"
+	elif [[ $# -eq 2 && $2 =~ ^[Aa][Ll]{0,2}$ ]]; then
+		touch "$res"
+		echo "{ \"hook\": [] }" > "$res"
 	else # append directory to resource file
 		dirEntry=$(pwd)
 		output=$(cat "$res" | jq ".hook |= .+ [\"$dirEntry\"]")
