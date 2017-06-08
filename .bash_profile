@@ -262,6 +262,8 @@ git_new_branch() {
 		git stash
 		git checkout master
 		git checkout -b "$1"
+		remove_appcompat_build_config
+		append_to_git_ignore
 	fi
 }
 
@@ -456,6 +458,7 @@ remove_appcompat_build_config() {
 	....
 	jar cf android-support-v7-appcompat.jar android
 	rm -fr android
+	wt
 }
 
 # update android/dev/TitaniumTest/AndroidManifest.xml
