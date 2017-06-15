@@ -63,7 +63,7 @@ alias d='cd $HOME/Documents'
 alias dt='cd $HOME/Desktop'
 alias dl='cd $HOME/Downloads'
 alias ntest='cd $tidev/build && npm install && node scons.js test android'
-alias wedit='cd $tidev && atom .'
+alias wedit='cd $tidev && subl .'
 alias ndev='appc run -p android -T device -l trace'
 # requires GENYMOTION_HOME path set in PATH
 alias gm='genymotion &'
