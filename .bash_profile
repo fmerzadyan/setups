@@ -14,6 +14,13 @@ alias nndk="cd $ANDROID_NDK"
 export NDK_CCACHE=/usr/local/bin/ccache
 export NUM_CPUS=8
 
+# appium required paths
+export ANDROID_HOME=$ANDROID_SDK
+# declared and assigned JAVA_HOME separately to avoid masking return value
+JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+export JAVA_HOME
+export PATH=$PATH:$JAVA_HOME/bin
+
 # git auto completion scripts
 # shellcheck source=/Users/fmerzadyan/setups/.git-completion.bash
 source $HOME/setups/.git-completion.bash
@@ -23,7 +30,7 @@ source $HOME/setups/.git-prompt.sh
 # application/program shortcuts
 # sublime launcher
 alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
-#set sublime as default editor
+# set sublime as default editor
 export EDITOR="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl -w"
 # visual code
 code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args "$@";}
@@ -425,7 +432,7 @@ nclibo() {
 standby() {
 	adb shell dumpsys battery unplug
 	adb shell am set-inactive com.titanium.test true
-	adb shell am set-inactive com.titanium.test  false
+	adb shell am set-inactive com.titanium.test false
 	adb shell am get-inactive com.titanium.test
 }
 
@@ -433,7 +440,6 @@ doze() {
 	adb shell dumpsys deviceidle force-idle
 }
 
-lines_added=5
 git_ignore_file="/Users/fmerzadyan/workspace/timob/.gitignore"
 append_to_git_ignore() {
 echo "node_modules" >> $git_ignore_file
