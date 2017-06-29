@@ -100,10 +100,6 @@ alias rl="source ~/.bash_profile"
 alias hc='history -cw && echo '' > $HOME/.bash_history'
 alias wipe="clear && printf '\e[3J' && hc && rl"
 
-alias .='cd ..'
-alias ..='cd ../..'
-alias ...='cd ../../..'
-alias ....='cd ../../../..'
 alias o='open .'
 alias yt='dl && youtube-dl'
 
@@ -455,7 +451,7 @@ remove_appcompat_build_config() {
 	jar xf android-support-v7-appcompat.jar
 	cd android/support/v7/appcompat
 	rm BuildConfig.class
-	....
+	cd ../../../..
 	jar cf android-support-v7-appcompat.jar android
 	rm -fr android
 	wt
