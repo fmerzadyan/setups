@@ -31,7 +31,7 @@ source $HOME/setups/.git-prompt.sh
 # sublime launcher
 alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 # set sublime as default editor
-export EDITOR="VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args "$@""
+export EDITOR="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl -w"
 # visual code
 vscode () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args "$@";}
 alias a="atom ."
