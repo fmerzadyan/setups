@@ -31,9 +31,9 @@ source $HOME/setups/.git-prompt.sh
 # sublime launcher
 alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 # set sublime as default editor
-export EDITOR="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl -w"
+export EDITOR="VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args "$@""
 # visual code
-code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args "$@";}
+vscode () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args "$@";}
 alias a="atom ."
 
 # appcelerator titanium shortcuts
@@ -70,7 +70,7 @@ alias d='cd $HOME/Documents'
 alias dt='cd $HOME/Desktop'
 alias dl='cd $HOME/Downloads'
 alias ntest='cd $tidev/build && npm install && node scons.js test android'
-alias wedit='cd $tidev && subl .'
+alias wedit='cd $tidev && vscode .'
 alias ndev='appc run -p android -T device -l trace'
 # requires GENYMOTION_HOME path set in PATH
 alias gm='genymotion &'
@@ -157,6 +157,10 @@ PROMPT_COMMAND=dynamic_theme
 PROMPT_DIRTRIM=2
 
 alias ls='ls -FA'
+
+alias b="cd .."
+alias bb='b && b'
+alias bbb='b && b && b'
 
 # custom functions
 insert_star() {
