@@ -47,10 +47,11 @@ export titest=$HOME/workspace/studio
 alias t='cd "$tsdk" && ls'
 # scons build_jsca=0  # Do full build & packaging but omit JSCA generation
 alias sconsself='scons build_jsca=0'
+alias sconscb='node "$tibuild"/scons.js cleanbuild'
 alias sconsb='node "$tibuild"/scons.js build'
 alias sconsp='node "$tibuild"/scons.js package'
 alias sconsi='node "$tibuild"/scons.js install'
-alias scons='sconsb && sconsp && sconsi'
+alias scons='sconscb && sconsp && sconsi'
 alias prod='appc logout; appc config set defaultEnvironment production; APPC_ENV=production appc login --username fmerzadyan@axway.com'
 alias preprod='appc logout; appc config set defaultEnvironment preproduction; APPC_ENV=preproduction appc login --username fmerzadyan@axway.com'
 alias preprodprod='appc logout; appc config set defaultEnvironment preprodonprod; APPC_ENV=preprodonprod appc login --username fmerzadyan@axway.com'
