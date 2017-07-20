@@ -270,7 +270,8 @@ git_new_branch() {
 		git stash
 		git checkout master
 		git checkout -b "$1"
-		remove_appcompat_build_config
+		fix_unable_to_execute_dex
+	
 		append_to_git_ignore
 	fi
 }
@@ -401,9 +402,9 @@ hook() {
 	fi
 }
 
+# Pushes a specified file, retrieved from the user-given argument,
+# into the Download directory in the connected device.
 android_push() {
-	# todo - improve this function
-	# push file into Downloads folder in emulator
 	adb push $1 /sdcard/Download/$2
 }
 
@@ -411,29 +412,29 @@ libc++() {
 	cp -r /Users/fmerzadyan/workspace/templates/android.runtime.v8.x86/* /Users/fmerzadyan/workspace/timob/android/runtime/v8/libs/x86
 }
 
+# Requires titanium_mobile repository to be named "timob"
 template_timob() {
-	cp -r /Users/fmerzadyan/workspace/templates/titanium.src.java.com /Users/fmerzadyan/workspace/timob/android/titanium/src/java/com/
+	cp -r /Users/fmerzadyan/workspace/templates/titanium.src.java.com/frankify/f.java /Users/fmerzadyan/workspace/timob/android/titanium/src/java/com/frankify/f.java
 	touch /Users/fmerzadyan/workspace/timob/android/dev/TitaniumTest/assets/app.json
 }
 
-# copy files into 6.2.0 live SDK for instant changes
-# android/cli/commands/_build.js
-# android/templates/build/AndroidManifest.xml
-# android/cli/lib/AndroidManifest.js
-# node_modules/node-titanium-sdk/lib/android.js
+# Copies files, listed below, into a specified "live" Titanium SDK for instant changes. 
+# NOTE: Concept of operation is only valid when applied to JavaScript files, as these files
+# do not require compilation.
+# Files:
+# 	android/cli/commands/_build.js
+# 	android/templates/build/AndroidManifest.xml
+# 	android/cli/lib/AndroidManifest.js
+# 	node_modules/node-titanium-sdk/lib/android.js
+titanium_sdk_version='6.2.0'
 ncli() {
-	cp  ~/workspace/timob/android/cli/commands/_build.js  '/Users/fmerzadyan/Library/Application Support/Titanium/mobilesdk/osx/6.2.0/android/cli/commands/_build.js'
-	cp ~/workspace/timob/android/templates/build/AndroidManifest.xml '/Users/fmerzadyan/Library/Application Support/Titanium/mobilesdk/osx/6.2.0/android/templates/build/AndroidManifest.xml'
-	cp ~/workspace/timob/android/cli/lib/AndroidManifest.js '/Users/fmerzadyan/Library/Application Support/Titanium/mobilesdk/osx/6.2.0/android/cli/lib/AndroidManifest.js'
-	cp ~/workspace/timob/node_modules/node-titanium-sdk/lib/android.js '/Users/fmerzadyan/Library/Application Support/Titanium/mobilesdk/osx/6.2.0/node_modules/node-titanium-sdk/lib/android.js '
+	cp  ~/workspace/timob/android/cli/commands/_build.js  '/Users/fmerzadyan/Library/Application Support/Titanium/mobilesdk/osx/$titanium_sdk_version/android/cli/commands/_build.js'
+	cp ~/workspace/timob/android/templates/build/AndroidManifest.xml '/Users/fmerzadyan/Library/Application Support/Titanium/mobilesdk/osx/$titanium_sdk_version/android/templates/build/AndroidManifest.xml'
+	cp ~/workspace/timob/android/cli/lib/AndroidManifest.js '/Users/fmerzadyan/Library/Application Support/Titanium/mobilesdk/osx/$titanium_sdk_version/android/cli/lib/AndroidManifest.js'
+	cp ~/workspace/timob/node_modules/node-titanium-sdk/lib/android.js '/Users/fmerzadyan/Library/Application Support/Titanium/mobilesdk/osx/$titanium_sdk_version/node_modules/node-titanium-sdk/lib/android.js '
 }
 
-# copy files into 6.2.0 live SDK for instant changes, navigates to workspace/studio/test,
-# cleans the build and builds app on connected Android device then outputs contents of buid/android/AndroidManifest.xml
-nclibo() {
-	ncli && wst && appc ti clean && ndev --build-only && echo "** test msg AndroidManifest.xml **" && cat build/android/AndroidManifest.xml
-}
-
+# Places the connected Android device into standby mode.
 standby() {
 	adb shell dumpsys battery unplug
 	adb shell am set-inactive com.titanium.test true
@@ -441,22 +442,23 @@ standby() {
 	adb shell am get-inactive com.titanium.test
 }
 
+# Forces the connected Android device into idle mode.
 doze() {
 	adb shell dumpsys deviceidle force-idle
 }
 
-git_ignore_file="/Users/fmerzadyan/workspace/timob/.gitignore"
+titanium_mobile_gitignore_file="/Users/fmerzadyan/workspace/timob/.gitignore"
 append_to_git_ignore() {
-echo "node_modules" >> $git_ignore_file
-echo "android/module*.xml" >> $git_ignore_file
-echo "android/.idea" >> $git_ignore_file
-echo "android/dev/TitaniumTest" >> $git_ignore_file
-echo "android/out" >> $git_ignore_file
+echo "node_modules" >> $titanium_mobile_gitignore_file
+echo "android/module*.xml" >> $titanium_mobile_gitignore_file
+echo "android/.idea" >> $titanium_mobile_gitignore_file
+echo "android/dev/TitaniumTest" >> $titanium_mobile_gitignore_file
+echo "android/out" >> $titanium_mobile_gitignore_file
 }
 
 # fix for 'Unable to exedute dex: multiple dex files defined' ERROR - appcompat/BuildConfig
-alias bc=remove_appcompat_build_config
-remove_appcompat_build_config() {
+alias fix_dex=fix_unable_to_execute_dex
+fix_unable_to_execute_dex() {
 	wt
 	cd android/modules/appcompat/lib/
 	jar xf android-support-v7-appcompat.jar
@@ -466,17 +468,4 @@ remove_appcompat_build_config() {
 	jar cf android-support-v7-appcompat.jar android
 	rm -fr android
 	wt
-}
-
-# update android/dev/TitaniumTest/AndroidManifest.xml
-alias utt=update_titanium_test
-update_titanium_test() {
-	cd /Users/fmerzadyan/workspace/timob/android/dev/TitaniumTest/src/com/titanium/test
-	mv TitaniumtestApplication.java TitaniumTestApplication.java
-	mv TitaniumtestActivity.java TitaniumTestActivity.java
-	mv TitaniumtestAppInfo.java TitaniumTestAppInfo.java
-	cp /Users/fmerzadyan/workspace/templates/android.dev.TitaniumTest/AndroidManifest.xml /Users/fmerzadyan/workspace/timob/android/dev/TitaniumTest/AndroidManifest.xml
-	cp /Users/fmerzadyan/workspace/templates/android.dev.TitaniumTest/TitaniumTestApplication.java /Users/fmerzadyan/workspace/timob/android/dev/TitaniumTest/src/com/titanium/test/TitaniumTestApplication.java
-	cp /Users/fmerzadyan/workspace/templates/android.dev.TitaniumTest/TitaniumTestActivity.java /Users/fmerzadyan/workspace/timob/android/dev/TitaniumTest/src/com/titanium/test/TitaniumTestActivity.java
-	cp /Users/fmerzadyan/workspace/templates/android.dev.TitaniumTest/TitaniumTestAppInfo.java /Users/fmerzadyan/workspace/timob/android/dev/TitaniumTest/src/com/titanium/test/TitaniumTestAppInfo.java
 }
