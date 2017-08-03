@@ -214,7 +214,21 @@ fi
 }
 
 open_android_emulator() {
-	$ANDROID_SDK/tools/emulator -avd $1
+	case "$1" in
+			24 )
+				# Unbind emulator process with terminal process and mute output messages.
+				$ANDROID_SDK/tools/emulator -avd "Nexus_6P_API_24" > /dev/null 2>&1 &
+				;;
+			23 )
+				$ANDROID_SDK/tools/emulator -avd "Nexus_6P_API_23" > /dev/null 2>&1 &
+				;;
+			22 )
+				$ANDROID_SDK/tools/emulator -avd "Nexus_6P_API_22" > /dev/null 2>&1 &
+				;;
+			* )
+				echo "No AVD exists for your specified API level."
+				;;
+	esac
 }
 
 git_log() {
