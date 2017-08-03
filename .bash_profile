@@ -75,11 +75,13 @@ alias wedit='cd $tidev && vscode .'
 alias ndev='appc run -p android -T device -l trace'
 # requires GENYMOTION_HOME path set in PATH
 alias gm='genymotion &'
+alias noe='open_android_emulator'
 alias nem='run_android_emulator'
 alias iem='open -a Xcode && appc run -p ios -l trace'
 # android adb restart
 alias nr='adb kill-server && adb start-server'
 alias np='android_push'
+alias nla='$ANDROID_SDK/tools/emulator -list-vds'
 
 # stage all modified files but unstage .gitignore then show result
 # would be good to see my alias/functions without visiting this file
@@ -182,28 +184,37 @@ if [[ "$1" == "latest" || "$1" == "-l" || "$1" == "l" ]]; then
 else
 	filter=$1
 fi
-	# range of accepted answers: 17-24
-	if [[ ( ! -z $filter ) && ( $filter =~ ^(1[7-9]|2[0-5])$ ) ]]; then
+	# Minimum API level supported by Titanium is 14. Range of supported API levels.
+	if [[ ( ! -z $filter ) && ( $filter =~ ^(1[4-9]|2[0-5])$ ) ]]; then
 		case "$filter" in
 			24 )
-				appc run -p android -T emulator --device-id "Google Nexus 6P - 7.0.0 - API 24 - 1440x2560" -l debug
+				appc run -p android -T emulator --device-id "Nexus_6P_API_24" -l debug
 				;;
 			23 )
-				appc run -p android -T emulator --device-id "Google Nexus 6 - 6.0.0 - API 23 - 1440x2560" -l debug
+				appc run -p android -T emulator --device-id "Nexus_6P_API_23" -l debug
+				;;
+			22 )
+				appc run -p android -T emulator --device-id "Nexus_6P_API_22" -l debug
 				;;
 			* )
-				echo "no avd has been created for that api level"
+				echo "No AVD exists for your specified API level."
 				;;
 		esac
 	else
 		insert_star
 		# shellcheck disable=SC2016
 		echo -e 'Usage example:  nem <api-level> e.g. `nem 24`'
-		echo -e 'list of emulators:'
+		echo -e 'List of emulators:'
 		echo -e
-		vboxmanage list vms
+		# Lists devices using VirtualBox API (GenyMotion uses VirtualBox).
+		# vboxmanage list vms
+		$ANDROID_SDK/tools/emulator -list-avds
 		insert_star
 	fi
+}
+
+open_android_emulator() {
+	$ANDROID_SDK/tools/emulator -avd $1
 }
 
 git_log() {
