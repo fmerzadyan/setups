@@ -296,7 +296,9 @@ git_new_branch() {
 		git stash
 		git checkout master
 		git checkout -b "$1"
-		fix_unable_to_execute_dex
+		if [[ $(pwd) == "$HOME/workspace/timob" ]]; then
+			fix_unable_to_execute_dex
+		fi
 	
 		append_to_git_ignore
 	fi
@@ -477,13 +479,18 @@ doze() {
 	adb shell dumpsys deviceidle force-idle
 }
 
-titanium_mobile_gitignore_file="/Users/fmerzadyan/workspace/timob/.gitignore"
 append_to_git_ignore() {
-echo "node_modules" >> $titanium_mobile_gitignore_file
-echo "android/module*.xml" >> $titanium_mobile_gitignore_file
-echo "android/.idea" >> $titanium_mobile_gitignore_file
-echo "android/dev/TitaniumTest" >> $titanium_mobile_gitignore_file
-echo "android/out" >> $titanium_mobile_gitignore_file
+	gitignore_file="$(pwd)/.gitignore"
+	if [[ $(pwd) == "$HOME/workspace/timob" ]]; then
+		titanium_mobile_gitignore_file="/Users/fmerzadyan/workspace/timob/.gitignore"
+		echo "android/module*.xml" >> $titanium_mobile_gitignore_file
+		echo "android/.idea" >> $titanium_mobile_gitignore_file
+		echo "android/dev/TitaniumTest" >> $titanium_mobile_gitignore_file
+		echo "android/out" >> $titanium_mobile_gitignore_file
+	fi
+	if [[ -f $gitignore_file && -d "$(pwd)/node_modules" ]]; then
+		echo "node_modules" >> $gitignore_file
+	fi
 }
 
 # fix for 'Unable to exedute dex: multiple dex files defined' ERROR - appcompat/BuildConfig
