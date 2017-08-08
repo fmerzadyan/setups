@@ -385,6 +385,10 @@ pull_request() {
 # this function requires jq; `brew install jq` to install jq
 hook() {
 	res=$HOME/setups/.hook_res.json
+	if [[ $1 =~ ^[Dd]$ ]]; then # delete res file
+		rm $HOME/setups/.hook_res.json
+		return
+	fi
 	if [[ ! -e $res || ! -s "$res" ]]; then # create and write to resource file if res file does not exist or is empty
 		echo -e "$res does not exist so creating"
 		touch "$res"
