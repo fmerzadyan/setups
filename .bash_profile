@@ -73,9 +73,9 @@ alias dt='cd $HOME/Desktop'
 alias dl='cd $HOME/Downloads'
 alias ntest='cd $tidev/build && npm install && node scons.js test android'
 alias wedit='cd $tidev && vscode .'
+# Presumes that the new project will be called GUID, therefore in the next iteration, it deletes the GUID project.
+alias guid='ws && rm -fr GUID && appc new --classic && cat GUID/tiapp.xml | grep "<guid>" | pbcopy'
 alias ndev='appc run -p android -T device -l trace'
-# requires GENYMOTION_HOME path set in PATH
-alias gm='genymotion &'
 alias noe='open_android_emulator'
 alias nem='run_android_emulator'
 alias iem='open -a Xcode && appc run -p ios -l trace'
@@ -469,9 +469,15 @@ ncli() {
 # Places the connected Android device into standby mode.
 standby() {
 	adb shell dumpsys battery unplug
-	adb shell am set-inactive com.titanium.test true
-	adb shell am set-inactive com.titanium.test false
-	adb shell am get-inactive com.titanium.test
+	if [[ $# -eq 1 ]]; then
+		adb shell am set-inactive com.titanium.test true
+		adb shell am set-inactive com.titanium.test false
+		adb shell am get-inactive com.titanium.test
+		return
+	fi
+	adb shell am set-inactive $1 true
+	adb shell am set-inactive $1 false
+	adb shell am get-inactive $1
 }
 
 # Forces the connected Android device into idle mode.
