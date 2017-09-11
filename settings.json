@@ -1,0 +1,9 @@
+{
+    "terminal.integrated.shell.windows": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "window.title": "${rootName}${separator}${activeEditorShort}",
+    "editor.renderWhitespace": "all",
+    "editor.trimAutoWhitespace": false,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "workbench.startupEditor": "welcomePage",
+    "editor.wordWrap": "on"
+}
