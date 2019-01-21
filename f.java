@@ -60,6 +60,10 @@ public class f
 	 */
 	public static void log(final String message, final Object[] array) {
 		if (array == null) log(message + " array: null");
+		else if (array.length == 0) {
+			log(message + " array.length: 0");
+			return;
+		}
 		int iMax = (array != null ? array.length : 0) - 1;
 		if (iMax == -1) log(message + " array: []");
 		StringBuilder sb = new StringBuilder();
