@@ -1,8 +1,24 @@
 {
-    //"terminal.integrated.shell.windows": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
-    "window.title": "${rootName}${separator}${activeEditorShort}",
+    "diffEditor.ignoreTrimWhitespace": false,
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
     "editor.renderWhitespace": "all",
     "editor.trimAutoWhitespace": false,
-    "diffEditor.ignoreTrimWhitespace": false,
-    "editor.wordWrap": "on"
+    "editor.wordWrap": "on",
+    "workbench.startupEditor": "newUntitledFile",
+    "workbench.activityBar.visible": true,
+    "breadcrumbs.enabled": true,
+    "editor.renderControlCharacters": false,
+    "cSpell.userWords": [
+        "activity",
+        "app",
+        "compat",
+        "lifecycle",
+        "lifecycles",
+        "owner"
+    ],
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "java.errors.incompleteClasspath.severity": "ignore",
+    "java.configuration.checkProjectSettingsExclusions": false,
 }
