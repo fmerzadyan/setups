@@ -1,514 +1,80 @@
-#!/usr/local/bin/bash
-# general development paths
-export PATH=/usr/local/bin:/usr/local/sbin:/bin:/usr/sbin:/usr/bin:/sbin
-export ANDROID_SDK=~/Library/Android/sdk
-export ANDROID_PLATFORM=$ANDROID_SDK/platforms/android-24
-export GOOGLE_APIS=$ANDROID_SDK/add-ons/addon-google_apis-google-24
-export ANDROID_NDK=~/Library/Android/ndk
-export PATH=$PATH:~/Library/Android/sdk/platform-tools
-export PATH=$PATH:~/Library/Android/sdk/tools
-export PATH=$PATH:~/Library/Android/sdk/tools/bin
-alias nsdk="cd $ANDROID_SDK"
-alias nndk="cd $ANDROID_NDK"
+#!/usr/bin/env bash
 
-export NDK_CCACHE=/usr/local/bin/ccache
-export NUM_CPUS=8
+ANDROID_HOME=/Users/frankie.and.one/Library/Android/sdk
+ANDROID_NDK=/Users/frankie.and.one/Library/Android/sdk/ndk-bundle
 
-# appium required paths
-export ANDROID_HOME=$ANDROID_SDK
-# declared and assigned JAVA_HOME separately to avoid masking return value
-JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
-export JAVA_HOME
-export PATH=$PATH:$JAVA_HOME/bin
+export PATH=$PATH:$ANDROID_HOME:/$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$ANDROID_NDK
 
-# git auto completion scripts
-# shellcheck source=/Users/fmerzadyan/setups/.git-completion.bash
-source $HOME/setups/.git-completion.bash
-# shellcheck source=/Users/fmerzadyan/setups/.git-prompt.sh
-source $HOME/setups/.git-prompt.sh
+source ~/dev/Setups/.git-completion.bash
+source ~/dev/Setups/.git-prompt.sh
 
-# application/program shortcuts
-# sublime launcher
-alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
-# set sublime as default editor
-export EDITOR="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl -w"
-# visual code
-vscode () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args "$@";}
-alias a="atom ."
+alias rl='source ~/.bash_profile'
+alias ch='history -cw && echo '' > ~/.bash_history'
+alias wipe="clear && printf '\e[3J' && ch && rl"
+alias ls='ls -a'
+alias ll='ls -l'
+alias lla='ls -al'
 
-# appcelerator titanium shortcuts
-# use quotation marks when calling to expand string e.g. cd "$tsdk"
-export tsdk="$HOME/Library/Application Support/Titanium"
-# replace tidev variable here
-export tidev=$HOME/workspace/timob
-export tibuild=$tidev/build
-export titest=$HOME/workspace/studio
-
-alias t='cd "$tsdk" && ls'
-# scons build_jsca=0  # Do full build & packaging but omit JSCA generation
-alias sconsself='scons build_jsca=0'
-alias sconscb='node "$tibuild"/scons.js cleanbuild'
-alias sconsb='node "$tibuild"/scons.js build'
-alias sconsp='node "$tibuild"/scons.js package'
-alias sconsi='node "$tibuild"/scons.js install'
-alias scons='sconscb && sconsp && sconsi'
-alias prod='appc logout; appc config set defaultEnvironment production; APPC_ENV=production appc login --username fmerzadyan@axway.com'
-alias preprod='appc logout; appc config set defaultEnvironment preproduction; APPC_ENV=preproduction appc login --username fmerzadyan@axway.com'
-alias preprodprod='appc logout; appc config set defaultEnvironment preprodonprod; APPC_ENV=preprodonprod appc login --username fmerzadyan@axway.com'
-
-# development shortcuts
-alias setups='cd $HOME/setups'
-alias show='defaults write com.apple.finder AppleShowAllFiles -bool YES && killall Finder'
-alias w='cd ~/workspace'
-alias wt='cd $tidev && ls'
-alias qe='w && cd qe-appium'
-alias u='cd $HOME/Documents/OneDrive/unispace && ls'
-alias ws='cd $titest'
-alias wst='cd $titest/test'
-alias wsk='cd $titest/kitchensink-v2'
-alias f='cd $HOME/forgespace && ls'
-alias fv='cd $HOME/forgespace/vicinity'
-alias d='cd $HOME/Documents'
-alias dt='cd $HOME/Desktop'
-alias dl='cd $HOME/Downloads'
-alias ntest='cd $tidev/build && npm install && node scons.js test android'
-alias wedit='cd $tidev && vscode .'
-# Presumes that the new project will be called GUID, therefore in the next iteration, it deletes the GUID project.
-alias guid='ws && rm -fr GUID && appc new --classic && cat GUID/tiapp.xml | grep "<guid>" | pbcopy'
-alias ndev='appc run -p android -T device -l trace'
-alias noe='open_android_emulator'
-alias nem='run_android_emulator'
-alias iem='open -a Xcode && appc run -p ios -l trace'
-# android adb restart
-alias nr='adb kill-server && adb start-server'
-alias np='android_push'
-alias nla='$ANDROID_SDK/tools/emulator -list-vds'
-
-# stage all modified files but unstage .gitignore then show result
-# would be good to see my alias/functions without visiting this file
-# to remove all local branches but keep master:
-# git branch | grep -v "master" | xargs git branch -D
-alias gl='git_log'
-alias gs='git status'
-alias gd='git_diff'
-alias ga='git_add'
-alias gc='git_commit'
-alias gp='git_push'
-alias gum='git_update_master'
-alias gnb='git_new_branch'
-alias gdb='git_delete_branch'
-alias gsl='git stash list'
-alias gss='git_show_stash'
-alias gsa='git_stash_apply'
-alias gsd='git_stash_drop'
-alias gr='git reset'
-alias grh='git reset HEAD --hard'
-alias pr='pull_request'
-
-# reload .bash_profile after changes
-# shellcheck disable=SC2139
-alias rl="source ~/.bash_profile"
-alias hc='history -cw && echo '' > $HOME/.bash_history'
-alias wipe="clear && printf '\e[3J' && hc && rl"
-
-alias o='open .'
-alias yt='dl && youtube-dl'
-
-# same bash history accross different terminals
-export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
-export HISTSIZE=100000                   # big big history
-export HISTFILESIZE=100000               # big big history
-shopt -s histappend                      # append to history, don"t overwrite it
-
-# Save and reload the history after each command finishes
-export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
-
-# Themes
 export CLICOLOR=1
-export LSCOLORS=ExFxBxDxCxegedabagacad
+export LSCOLORS=GxFxCxDxBxegedabagaced
+export TERM="xterm-256color"
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+PS1='\[\e[0;33m\]\u\[\e[0m\]:\[\e[0;34m\]\w\[\e[0m\]\[\033[32m\]$(parse_git_branch)\[\033[00m\]$ '
+export GREP_OPTIONS='--color=auto'
 
-# FlatUI theme
-# export PS1='\[\e[00;31m\]\u\[\e[0m\]\[\e[00;35m\]@\[\e[0m\]\[\e[00;32m\]\h\[\e[0m\]\[\e[00;35m\]:\[\e[0m\]\[\e[00;33m\]\w\[\e[0m\]\[\e[00;34m\]$(__git_ps1 " (%s)")\[\e[0m\]\$ '
-
-# u - the current user's username
-# h - the current machine's hostname
-# j - the number of jobs managed by this shell
-# @ - the current time (12 hour format)
-# d - the current date
-# w - path of the current working directory
-# W - just the current working directory
-# e - an ASCII escape character (033)
-# n - adds a newline character
-#
-# normal='\[\e[0m\]'
-# green='\[\033[0;92m\]'
-# blue='\[\033[0;94m\]'
-# yellow='\[\033[0;93m\]'
-# changed from using variables because of issues with globular expansions/substitutions
-
-dynamic_theme() {
-	__git_ps1_json
-	if [[ $PWD != "$HOME" ]]; then
-		export PS1='\[\033[0;91m\]\w\[\033[0;31m\] $(__git_ps1 "~ %s") \[\033[1;94m\]\$ \[\033[0;92m\]'
-	else
-		export PS1='\[\033[0;31m\] $(__git_ps1 "~ %s") \[\033[1;94m\]\$ \[\033[0;92m\]'
-	fi
+adb_reset() {
+    adb kill-server
+    adb start-server
 }
 
-# invoke function after every terminal command input
-PROMPT_COMMAND=dynamic_theme
-# set max number of working directory parts
-PROMPT_DIRTRIM=2
-
-alias ls='ls -FA'
-
-alias b="cd .."
-alias bb='b && b'
-alias bbb='b && b && b'
-
-# custom functions
-insert_star() {
-	echo -e
-	for (( i = 0; i < $(tput cols); i++ )); do
-			if [ $((i%2)) -eq 0 ]; then
-				printf "*"
-			else
-				printf " "
-			fi
-	done
-	echo -e
+adb_reset_with_wear() {
+    adb_reset
+    wear_connect_via_wifi
 }
 
-run_android_emulator() {
-if [[ "$1" == "latest" || "$1" == "-l" || "$1" == "l" ]]; then
-	filter=24
-else
-	filter=$1
-fi
-	# Minimum API level supported by Titanium is 14. Range of supported API levels.
-	if [[ ( ! -z $filter ) && ( $filter =~ ^(1[4-9]|2[0-5])$ ) ]]; then
-		case "$filter" in
-			24 )
-				appc run -p android -T emulator --device-id "Nexus_6P_API_24" -l debug
-				;;
-			23 )
-				appc run -p android -T emulator --device-id "Nexus_6P_API_23" -l debug
-				;;
-			22 )
-				appc run -p android -T emulator --device-id "Nexus_6P_API_22" -l debug
-				;;
-			* )
-				echo "No AVD exists for your specified API level."
-				;;
-		esac
-	else
-		insert_star
-		# shellcheck disable=SC2016
-		echo -e 'Usage example:  nem <api-level> e.g. `nem 24`'
-		echo -e 'List of emulators:'
-		echo -e
-		# Lists devices using VirtualBox API (GenyMotion uses VirtualBox).
-		# vboxmanage list vms
-		$ANDROID_SDK/tools/emulator -list-avds
-		insert_star
-	fi
-}
+# IP address of wear can be found in developer settings (debug over WiFi).
+wear_ip_address="192.168.1.91:5555"
 
-open_android_emulator() {
-	case "$1" in
-			24 )
-				# Unbind emulator process with terminal process and mute output messages.
-				$ANDROID_SDK/tools/emulator -avd "Nexus_6P_API_24" > /dev/null 2>&1 &
-				;;
-			23 )
-				$ANDROID_SDK/tools/emulator -avd "Nexus_6P_API_23" > /dev/null 2>&1 &
-				;;
-			22 )
-				$ANDROID_SDK/tools/emulator -avd "Nexus_6P_API_22" > /dev/null 2>&1 &
-				;;
-			* )
-				echo "No AVD exists for your specified API level."
-				;;
-	esac
+wear_connect_via_wifi() {
+    adb connect $wear_ip_address
 }
 
 git_log() {
-	git rev-parse --show-toplevel &> /dev/null
-	if [[ $? -ne 0 ]]; then
-		echo "error ~ not git repo"
-		return
-	fi
-	git log --oneline -$1
+    if [ $# -eq 0 ]; then
+        git log --oneline -10
+    else
+        git log --oneline -n $1
+    fi
 }
 
-git_diff() {
-	git rev-parse --show-toplevel &> /dev/null
-	if [[ $? -ne 0 ]]; then
-		echo "error ~ not git repo"
-		return
-	fi
-	git diff
+git_find_conflicts() {
+    git diff --name-only --diff-filter=U
 }
 
-git_add() {
-	git rev-parse --show-toplevel &> /dev/null
-	if [[ $? -ne 0 ]]; then
-		echo "error ~ not git repo"
-		return
-	fi
-	git add -u && git reset HEAD .gitignore && git reset HEAD android/dev/TitaniumTest/assets/Resources/app.js && git status
+git_merge_tutorial() {
+    # git checkout master
+    # git pull origin master
+    # git checkout other-branch
+    # git pull origin other-branch
+    # git rebase -i master
+    # git checkout master
+    # git merge other-branch
+    echo "git_merge_tutorial()"
 }
 
-git_commit() {
-	git rev-parse --show-toplevel &> /dev/null
-	if [[ $? -ne 0 ]]; then
-		echo "error ~ not git repo"
-		return
-	fi
-	git commit -m "$1"
+# $1 - file path.
+git_log_follow() {
+    git log --follow -p -- $1
 }
 
-git_push() {
-	git rev-parse --show-toplevel &> /dev/null
-	if [[ $? -ne 0 ]]; then
-		echo "error ~ not git repo"
-		return
-	fi
-	git push $1 $2
+adb_screenshot() {
+    adb exec-out screencap -p > screenshot.png
 }
 
-git_update_master() {
-	git rev-parse --show-toplevel &> /dev/null
-	if [[ $? -ne 0 ]]; then
-		echo "error ~ not git repo"
-		return
-	fi
-	git stash && git checkout master && git pull upstream master && git push origin master -f
-}
-
-git_new_branch() {
-	git rev-parse --show-toplevel &> /dev/null
-	if [[ $? -ne 0 ]]; then
-		echo "error ~ not git repo"
-		return
-	fi
-	if [[ ! -z $1 ]]; then
-		git stash
-		git checkout master
-		git checkout -b "$1"
-		if [[ $(pwd) == "$HOME/workspace/timob" ]]; then
-			fix_unable_to_execute_dex
-		fi
-	
-		append_to_git_ignore
-	fi
-}
-
-git_delete_branch() {
-	git rev-parse --show-toplevel &> /dev/null
-	if [[ $? -ne 0 ]]; then
-		echo "error ~ not git repo"
-		return
-	fi
-	if [[ ! -z $1 ]]; then
-		git checkout master
-		git branch -D "$1"
-	fi
-}
-
-git_show_stash() {
-	# execute and redirect all output to /dev/null
-	git rev-parse --show-toplevel &> /dev/null
-	if [[ $? -ne 0 ]]; then
-		echo "error ~ not git repo"
-		return
-	fi
-	# execute and redirect all output to /dev/null
-	git stash show -p stash@{$1} &> /dev/null
-	if [[ $? -ne 0 ]]; then
-		echo "error ~ enter integer where 0 < i <= $(( $git_stash_list_length-1 ))"
-	else
-		# if execution had no errors then execute without redirect to /dev/null
-		git stash show -p stash@{$1}
-	fi
-}
-
-git_stash_apply() {
-	git rev-parse --show-toplevel &> /dev/null
-	if [[ $? -ne 0 ]]; then
-		echo "error ~ not git repo"
-		return
-	fi
-	git stash apply stash@{$1}
-}
-
-git_stash_drop() {
-	git rev-parse --show-toplevel &> /dev/null
-	if [[ $? -ne 0 ]]; then
-		echo "error ~ not git repo"
-		return
-	fi
-	git stash drop stash@{$1}
-}
-
-git_stash_list_length() {
-	git rev-parse --show-toplevel &> /dev/null
-	if [[ $? -ne 0 ]]; then
-		echo "error ~ not git repo"
-		return
-	fi
-	list=$(git stash list -n 100 &> /dev/null)
-	# strip tabs
-	size=$(echo "$list" | wc -l | sed 's/^[ \t]*//')
-	return $size
-}
-
-pull_request() {
-	git rev-parse --show-toplevel &> /dev/null
-	if [[ $? -ne 0 ]]; then
-		echo "error ~ not git repo"
-		return
-	fi
-	git stash save
-	git checkout master
-	# git fetch <remote_name> pull/<pr_id>/head:<branch_name>
-	# e.g. git fetch upstream pull/8759/head:pivot
-	# $1 is remote name, $2 is id of PR, $3 is branch name
-	# make upstream default $1
-	if [[ $# < 3 ]]; then
-		echo "remote is not given; default upstream is used."
-		$1='upstream'
-		$2=$1
-		$3=$2
-	fi
-	git fetch $1 pull/$2/head:$3
-	git checkout $3
-}
-
-# this function requires jq; `brew install jq` to install jq
-hook() {
-	res=$HOME/setups/.hook_res.json
-	if [[ $1 =~ ^[Dd]$ ]]; then # delete res file
-		rm $HOME/setups/.hook_res.json
-		return
-	fi
-	if [[ ! -e $res || ! -s "$res" ]]; then # create and write to resource file if res file does not exist or is empty
-		echo -e "$res does not exist so creating"
-		touch "$res"
-		echo "{ \"hook\": [] }" > "$res"
-	fi
-	if [[ $1 =~ ^[Ss]?[Hh]?[Oo][Ww]|[Ss]$ ]]; then # show contents of resource file
-		output=$(cat "$res" | jq ".hook")
-		echo $output
-		return
-	elif [[ $1 =~ ^[Pp]?[Uu]?[Ll]{2}|[Pp]$ && $2 =~ ^-?[0-9]$ ]]; then # hook pull particular directory
-			if [[ $2 -lt 0 ]]; then
-				return
-			fi
-			output=$(cat "$res" | jq ".hook[$2]")
-			temp="${output%\"}"
-			temp="${temp#\"}"
-			cd "$temp"
-	elif [[ $1 =~ ^[Pp]?[Uu]?[Ll]{2}|[Pp]$ ]]; then # hook pull the latest directory
-			len=$(cat "$res" | jq ".[] | length")
-			last=$(expr $len - 1)
-			output=$(cat "$res" | jq ".hook[$last]")
-			# replacing double speech mark from output to literal speech marks preventing cd
-			temp="${output%\"}"
-			temp="${temp#\"}"
-			cd "$temp"
-	elif [[ $1 =~ ^-?[0-9]$ ]]; then # replace particular directory with current directory
-		if [[ $1 -lt 0 ]]; then
-			return
-		fi
-		dirEntry=$(pwd)
-		output=$(cat "$res" | jq ".hook[$1]=\"$dirEntry\"")
-		echo $output > "$res"
-	elif [[ $# -eq 2 && $2 =~ ^[Aa][Ll]{0,2}$ ]]; then
-		touch "$res"
-		echo "{ \"hook\": [] }" > "$res"
-	else # append directory to resource file
-		dirEntry=$(pwd)
-		output=$(cat "$res" | jq ".hook |= .+ [\"$dirEntry\"]")
-		echo $output > "$res"
-	fi
-}
-
-# Pushes a specified file, retrieved from the user-given argument,
-# into the Download directory in the connected device.
-android_push() {
-	adb push $1 /sdcard/Download/$2
-}
-
-libc++() {
-	cp -r /Users/fmerzadyan/workspace/templates/android.runtime.v8.x86/* /Users/fmerzadyan/workspace/timob/android/runtime/v8/libs/x86
-}
-
-# Requires titanium_mobile repository to be named "timob"
-template_timob() {
-	cp -r /Users/fmerzadyan/workspace/templates/titanium.src.java.com/frankify/f.java /Users/fmerzadyan/workspace/timob/android/titanium/src/java/com/frankify/f.java
-	touch /Users/fmerzadyan/workspace/timob/android/dev/TitaniumTest/assets/app.json
-}
-
-# Copies files, listed below, into a specified "live" Titanium SDK for instant changes. 
-# NOTE: Concept of operation is only valid when applied to JavaScript files, as these files
-# do not require compilation.
-# Files:
-# 	android/cli/commands/_build.js
-# 	android/templates/build/AndroidManifest.xml
-# 	android/cli/lib/AndroidManifest.js
-# 	node_modules/node-titanium-sdk/lib/android.js
-titanium_sdk_version='6.2.0'
-ncli() {
-	cp  ~/workspace/timob/android/cli/commands/_build.js  '/Users/fmerzadyan/Library/Application Support/Titanium/mobilesdk/osx/$titanium_sdk_version/android/cli/commands/_build.js'
-	cp ~/workspace/timob/android/templates/build/AndroidManifest.xml '/Users/fmerzadyan/Library/Application Support/Titanium/mobilesdk/osx/$titanium_sdk_version/android/templates/build/AndroidManifest.xml'
-	cp ~/workspace/timob/android/cli/lib/AndroidManifest.js '/Users/fmerzadyan/Library/Application Support/Titanium/mobilesdk/osx/$titanium_sdk_version/android/cli/lib/AndroidManifest.js'
-	cp ~/workspace/timob/node_modules/node-titanium-sdk/lib/android.js '/Users/fmerzadyan/Library/Application Support/Titanium/mobilesdk/osx/$titanium_sdk_version/node_modules/node-titanium-sdk/lib/android.js '
-}
-
-# Places the connected Android device into standby mode.
-standby() {
-	adb shell dumpsys battery unplug
-	if [[ $# -eq 1 ]]; then
-		adb shell am set-inactive com.titanium.test true
-		adb shell am set-inactive com.titanium.test false
-		adb shell am get-inactive com.titanium.test
-		return
-	fi
-	adb shell am set-inactive $1 true
-	adb shell am set-inactive $1 false
-	adb shell am get-inactive $1
-}
-
-# Forces the connected Android device into idle mode.
-doze() {
-	adb shell dumpsys deviceidle force-idle
-}
-
-append_to_git_ignore() {
-	gitignore_file="$(pwd)/.gitignore"
-	if [[ $(pwd) == "$HOME/workspace/timob" ]]; then
-		titanium_mobile_gitignore_file="/Users/fmerzadyan/workspace/timob/.gitignore"
-		echo "android/module*.xml" >> $titanium_mobile_gitignore_file
-		echo "android/.idea" >> $titanium_mobile_gitignore_file
-		echo "android/dev/TitaniumTest" >> $titanium_mobile_gitignore_file
-		echo "android/out" >> $titanium_mobile_gitignore_file
-	fi
-	if [[ -f $gitignore_file && -d "$(pwd)/node_modules" ]]; then
-		echo "node_modules" >> $gitignore_file
-	fi
-}
-
-# fix for 'Unable to exedute dex: multiple dex files defined' ERROR - appcompat/BuildConfig
-alias fix_dex=fix_unable_to_execute_dex
-fix_unable_to_execute_dex() {
-	wt
-	cd android/modules/appcompat/lib/
-	jar xf android-support-v7-appcompat.jar
-	cd android/support/v7/appcompat
-	rm BuildConfig.class
-	cd ../../../..
-	jar cf android-support-v7-appcompat.jar android
-	rm -fr android
-	wt
+# $1 - file path.
+# $2 - filename with extension.
+adb_push() {
+    adb push $1 /sdcard/0/$2
 }

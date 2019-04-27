@@ -1,16 +1,13 @@
 @file:Suppress("ClassName", "MemberVisibilityCanBePrivate", "unused")
 
-package one.and.frankie.mobilewearble
-
 import android.content.Intent
 import android.util.Log
-
-import java.util.ArrayList
+import java.util.*
 
 object f {
     private const val TAG = "frankie.and.one"
 
-    private fun printStackTrace(msg: String?) {
+    @JvmStatic private fun printStackTrace(msg: String?) {
         var callerClass = "<callerClass>"
         var callerMethod = "<callerMethod>"
 
@@ -38,27 +35,29 @@ object f {
         )
     }
 
-    fun log(msg: String) {
+    @JvmStatic fun log(msg: String) {
         printStackTrace(msg)
     }
 
+    @JvmStatic
     fun log(msgs: Array<out String>) {
         msgs.forEach {
             log(it)
         }
     }
 
+    @JvmStatic
     fun log(msg: Int) {
         printStackTrace("$msg.")
     }
 
-    fun log(msgs: IntArray) {
+    @JvmStatic fun log(msgs: IntArray) {
         msgs.forEach {
             log(it)
         }
     }
 
-    fun log(msg: String, map: Map<*, *>?) {
+    @JvmStatic fun log(msg: String, map: Map<*, *>?) {
         if (map == null) {
             printStackTrace("$msg map: null.")
             return
@@ -78,6 +77,7 @@ object f {
         printStackTrace("$msg $stringBuilder")
     }
 
+    @JvmStatic
     fun log(msg: String, array: Array<Any>?) {
         if (array == null) {
             printStackTrace("$msg array: null.")
@@ -105,11 +105,12 @@ object f {
         }
     }
 
+    @JvmStatic
     fun log(msg: String, list: ArrayList<*>) {
         log(msg, list.toTypedArray())
     }
 
-    fun log(intent: Intent?) {
+    @JvmStatic fun log(intent: Intent?) {
         if (intent == null) {
             printStackTrace("intent: null.")
             return
@@ -131,7 +132,7 @@ object f {
         }
     }
 
-    fun log() {
+    @JvmStatic fun log() {
         printStackTrace("")
     }
 }

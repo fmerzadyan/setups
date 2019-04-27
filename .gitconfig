@@ -1,7 +1,12 @@
-[filter "lfs"]
-	smudge = git-lfs smudge %f
-	required = true
-	clean = git-lfs clean %f
 [user]
-	name = fmerzadyan
-	email = fmerzadyan@axway.com
+	email = frankie.and.one@protonmail.com
+	name = Frankie
+[core]
+	editor = code --wait
+	excludesfile = /Users/frankie.and.one/.gitignore_global
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
