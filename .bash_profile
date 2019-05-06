@@ -4,6 +4,9 @@ ANDROID_HOME=/Users/frankie.and.one/Library/Android/sdk
 ANDROID_NDK=/Users/frankie.and.one/Library/Android/sdk/ndk-bundle
 
 export PATH=$PATH:$ANDROID_HOME:/$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$ANDROID_NDK
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
 
 source ~/dev/Setups/.git-completion.bash
 source ~/dev/Setups/.git-prompt.sh
@@ -14,6 +17,7 @@ alias wipe="clear && printf '\e[3J' && ch && rl"
 alias ls='ls -a'
 alias ll='ls -l'
 alias lla='ls -al'
+alias my_passport='cd /Volumes/My\ Passport'
 
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
